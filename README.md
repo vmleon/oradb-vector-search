@@ -10,7 +10,7 @@ For the Generative AI, Vector Search at Oracle Database support Retrieval Augmen
 
 [Oracle AI Vector Search User's Guide](https://docs.oracle.com/en/database/oracle/oracle-database/23/vecse/index.html)
 
-## Vector DDL, DML, and Queries
+## Vector DDL, DML, and Queries
 
 ```
 sqlplus vector/vector@orclpdb1
@@ -583,7 +583,7 @@ ORDER  BY vector_distance(vector('[6, 8]'), v)
 FETCH FIRST 10 ROWS ONLY;
 ```
 
-## Other Distance Functions
+## Other Distance Functions
 
 ```sql
 DROP TABLE IF EXISTS vt3 ;
