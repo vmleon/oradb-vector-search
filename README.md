@@ -22,6 +22,16 @@ Embeddings are AI models that transform unstructured data into numbers. Those nu
 
 The first and last step in Embedding is to convert words to tokens and finally convert tokens into words.
 
+## Retrieval Augmented Generation
+
+To improve accurate AI model responses, Retrieval Augmented Generation involves a ETL (extract, Transform and Load) batch processing that reads unstructed data from your documents, transforms it, and then writes it into a Vector Search database.
+
+The vector database is used in the retrieval part of the RAG technique.
+
+You need to split the original document into smaller pieces. The split needs to hold the semantic boundaries of the content. The split parts size must be a small percentage of the AI Model's token limit.
+
+The final user prompt along with the similar documents found by the vector search are sent to the AI model for composing the final answer to the final user.
+
 ## Content
 
 - [Spring AI for RAG on Oracle 23ai Vector DB with OpenAI and private LLMs](https://github.com/oracle-devrel/springai-rag-db23ai)
