@@ -4,7 +4,12 @@ Oracle AI Vector Search feature allow you to store, index and search vector data
 
 Vector data is a representation of unstructured data as a multidimensional array. Vector search allows you to search for similar patterns within the semantic of the unstructured data: text, images, audio, and video.
 
-Oracle Database support a vector Data Type for a seamless integration; indexes and search query capabilities included.
+Oracle Database support a **VECTOR** Data Type for a seamless integration; indexes and search query capabilities included.
+
+Oracle AI Vector Search features two primary vector indexing methods:
+
+- Neighbor Partition Vector Index: index that cluster vectors based on similarity.
+- Neighbor Graph Vector Index: In-Memory index that represents vectors as vertices and similarities as edges.
 
 For the Generative AI, AI Vector Search at Oracle Database support Retrieval Augmented Generation (RAG) to increase higher accuracy and avoids hallucinations on LLMs based on private knowledge base.
 
@@ -14,7 +19,7 @@ One of the biggest benefits of Oracle AI Vector Search is that semantic search o
 
 Vector Search is often considered better than keyword search as vector search is based on the meaning and context behind the words and not the actual words themselves.
 
-## Embeddings
+## Embeddings
 
 Embeddings are AI models that transform unstructured data into numbers. Those numbers can be understood as vectors un a 2D Euclidean geometry, but in higher dimensions. We can calculate proximity of the points to reflect similarity in meaning. This proximity helps in text classification, semantic search, and even product recommendations.
 
@@ -22,7 +27,7 @@ Embeddings are AI models that transform unstructured data into numbers. Those nu
 
 The first and last step in Embedding is to convert words to tokens and finally convert tokens into words.
 
-## Retrieval Augmented Generation
+## Retrieval Augmented Generation
 
 To improve accurate AI model responses, Retrieval Augmented Generation involves a ETL (extract, Transform and Load) batch processing that reads unstructed data from your documents, transforms it, and then writes it into a Vector Search database.
 

@@ -1,4 +1,4 @@
-# Notes
+# Notes
 
 ## Competitors
 
@@ -14,7 +14,7 @@ Vector Database providers:
 - Redis
 - Weaviate
 
-## Related documentation
+## Related documentation
 
 - [The Definitive ANTLR 4 Reference, 2nd Edition](https://learning.oreilly.com/library/view/the-definitive-antlr/9781941222621/)
 - [HuggingFace](https://huggingface.co/)
