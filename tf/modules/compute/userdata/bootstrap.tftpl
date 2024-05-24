@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Update and upgrade repo
+dnf update -y
+dnf upgrade -y
+dnf install jdk-22-headless -y
+dnf install sqlcl -y
+
+# Creating highlight.json
+cat <<EOT >> /home/opc/highlight.json
+{
+    "highlights": [
+        {
+            "type": "regex",
+            "test": "^[0-9]+$",
+            "color": "RED"
+        },
+        {
+            "type": "regex",
+            "test": "^[^0-9]+$",
+            "color": "GREEN"
+        }
+    ]
+}
+EOT
+chown opc:opc /home/opc/highlight.json
+
+# Creating highlight.json
+cat <<EOT >> /home/opc/connection.sql
+conn -save basedb -url ${db_url} -savepwd -u system -password '${db_password}'
+EOT
+chown opc:opc /home/opc/connection.sql
+
+# Creating login.sql
+cat <<EOT >> /home/opc/login.sql
+SET statusbar ON
+
+SET highlighting ON
+SET sqlformat ansiconsole -config=highlight.json
+
+EOT
+chown opc:opc /home/opc/login.sql
