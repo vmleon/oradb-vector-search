@@ -1,5 +1,7 @@
 # Oracle Database Vector Search
 
+To deploy this solution go to the [Deployment Steps](DEPLOY.md)
+
 Oracle AI Vector Search feature allow you to store, index and search vector data within the Oracle Database.
 
 Vector data is a representation of unstructured data as a multidimensional array. Vector search allows you to search for similar patterns within the semantic of the unstructured data: text, images, audio, and video.
