@@ -26,3 +26,17 @@ variable "project_name" {
 variable "instance_shape" {
   type = string
 }
+
+variable "datascience_shape" {
+  type = string
+}
+
+variable "notebook_ocpus" {
+  type = number
+  default = 1
+}
+
+variable "notebook_memory_in_gbs" {
+  type = number
+  default = 16
+}

@@ -2,6 +2,10 @@
 
 To deploy this solution go to the [Deployment Steps](DEPLOY.md)
 
+¡[Architecture Diagrama](images/architecture.drawio.png)
+
+[GoldenGate Data Streaming Tutorial](https://docs.oracle.com/en/learn/oci-gg-to-streaming/index.html#task-4-create-a-new-schema-and-settings-for-sourcedb)
+
 Oracle AI Vector Search feature allow you to store, index and search vector data within the Oracle Database.
 
 Vector data is a representation of unstructured data as a multidimensional array. Vector search allows you to search for similar patterns within the semantic of the unstructured data: text, images, audio, and video.

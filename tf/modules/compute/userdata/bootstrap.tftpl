@@ -40,3 +40,5 @@ SET sqlformat ansiconsole -config=highlight.json
 
 EOT
 chown opc:opc /home/opc/login.sql
+
+echo exit | sql /nolog @/home/opc/connection.sql

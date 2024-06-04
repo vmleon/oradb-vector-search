@@ -1,5 +1,4 @@
 resource "oci_database_db_system" "db_system" {
-  
   availability_domain = lookup(data.oci_identity_availability_domains.ads.availability_domains[0], "name")
   compartment_id      = var.compartment_ocid
   subnet_id           = var.subnet_ocid
@@ -26,14 +25,15 @@ resource "oci_database_db_system" "db_system" {
     display_name = var.display_name
   }
 
-  disk_redundancy         = var.disk_redundancy
-  shape                   = var.shape
-  ssh_public_keys         = [var.ssh_public_key_content]
-  display_name            = var.display_name
-  hostname                = var.hostname
-  data_storage_size_in_gb = var.data_storage_size_in_gb
-  license_model           = var.license_model
-  node_count              = var.node_count
+  disk_redundancy                 = var.disk_redundancy
+  shape                           = var.shape
+  ssh_public_keys                 = [var.ssh_public_key_content]
+  display_name                    = var.display_name
+  hostname                        = var.hostname
+  data_storage_size_in_gb         = var.data_storage_size_in_gb
+  storage_volume_performance_mode = var.storage_volume_performance_mode
+  license_model                   = var.license_model
+  node_count                      = var.node_count
 
   db_system_options {
     storage_management = var.db_storage_management

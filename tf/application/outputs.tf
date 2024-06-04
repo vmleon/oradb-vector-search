@@ -30,10 +30,6 @@ output "db_password" {
   sensitive = true
 }
 
-output "oci_core_services_all_services" {
-  value = data.oci_core_services.all_services.services[0]
-}
-
-output "oci_core_services_os_service" {
-  value = data.oci_core_services.all_services.services[1]
+output "datascience_notebook_session_url" {
+  value = module.datascience.ds_notebook_session_url
 }

@@ -94,6 +94,12 @@ variable "disk_redundancy" {
   default = "NORMAL"
 }
 
+variable "storage_volume_performance_mode" {
+  type = string
+  description = "BALANCED, HIGH_PERFORMANCE"
+  default = "BALANCED"
+}
+
 variable "db_storage_management" {
   type = string
   description = "LVM, ASM"

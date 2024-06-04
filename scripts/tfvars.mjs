@@ -21,6 +21,9 @@ async function generateTFVars() {
   const publicKeyContent = config.get("publicKeyContent");
   const sshPrivateKeyPath = config.get("privateKeyPath");
   const instanceShape = config.get("instanceShape");
+  const datascienceShape = config.get("dsShape");
+  const dsNotebookOCPU = config.get("dsNotebookOCPU");
+  const dsNotebookMemory = config.get("dsNotebookMemory");
 
   const tfFolder = path.join("tf", "application");
   const tfVarsPath = path.join(tfFolder, "terraform.tfvars");
@@ -35,6 +38,9 @@ async function generateTFVars() {
     ssh_private_key_path: sshPrivateKeyPath,
     project_name: projectName,
     instance_shape: instanceShape,
+    datascience_shape: datascienceShape,
+    notebook_ocpus: dsNotebookOCPU,
+    notebook_memory_in_gbs: dsNotebookMemory,
   });
 
   console.log(

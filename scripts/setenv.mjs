@@ -11,6 +11,10 @@ import {
   getEFlexShapes,
 } from "./lib/oci.mjs";
 import { createSSHKeyPair } from "./lib/crypto.mjs";
+import {
+  listDataScienceSessionShapes,
+  listDataScienceSessionShapesFamilies,
+} from "./lib/oci/datascience.mjs";
 
 $.verbose = false;
 
@@ -34,6 +38,9 @@ await setCompartmentEnv();
 const compartmentId = config.get("compartmentId");
 
 await selectComputeShape();
+await selectDataScienceShape();
+await selectNotebookSize();
+
 await createSSHKeys(projectName);
 
 console.log(`\nConfiguration file saved in: ${chalk.green(config.path)}`);
@@ -129,6 +136,69 @@ async function selectComputeShape() {
     ])
     .then((answers) => {
       config.set("instanceShape", answers.instance_shape);
+    });
+}
+
+async function selectDataScienceShape() {
+  const dsShapeFamilies = await listDataScienceSessionShapesFamilies(
+    { profile, region: regionName },
+    compartmentId
+  );
+
+  await inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "ds_shape_family",
+        message: "Select the Data Science Shape Family",
+        choices: dsShapeFamilies.sort(),
+      },
+    ])
+    .then(async (answers) => {
+      config.set("dsShapeFamily", answers.ds_shape_family);
+      const dsShapes = await listDataScienceSessionShapes(
+        { profile, region: regionName },
+        compartmentId,
+        answers.ds_shape_family
+      );
+
+      await inquirer
+        .prompt([
+          {
+            type: "list",
+            name: "ds_shape",
+            message: "Select the Data Science Shape",
+            choices: dsShapes
+              .map((s) => s.name)
+              .sort()
+              .reverse(),
+          },
+        ])
+        .then((answers) => {
+          config.set("dsShape", answers.ds_shape);
+        });
+    });
+}
+
+async function selectNotebookSize() {
+  await inquirer
+    .prompt([
+      {
+        type: "number",
+        name: "notebook_ocpu",
+        message: "Data Science Notebook OCPUs",
+        default: 1,
+      },
+      {
+        type: "number",
+        name: "notebook_memory",
+        message: "Data Science Notebook Memory (Gb)",
+        default: 16,
+      },
+    ])
+    .then((answers) => {
+      config.set("dsNotebookOCPU", answers.notebook_ocpu);
+      config.set("dsNotebookMemory", answers.notebook_memory);
     });
 }
 

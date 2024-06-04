@@ -7,7 +7,7 @@ resource "oci_core_virtual_network" "vcn" {
 
 resource "oci_core_service_gateway" "service_gateway" {
   compartment_id = var.compartment_ocid
-  display_name   = "SG ${local.project_name} ${local.deploy_id}"
+  display_name   = "service_gateway"
   vcn_id         = oci_core_virtual_network.vcn.id
   services {
     service_id = data.oci_core_services.all_services.services[0].id
@@ -49,8 +49,23 @@ resource "oci_core_route_table" "route_private" {
   }
 }
 
-resource "oci_core_subnet" "app_subnet" {
+resource "oci_core_subnet" "public_subnet" {
   cidr_block                 = "10.0.1.0/24"
+  compartment_id             = var.compartment_ocid
+  vcn_id                     = oci_core_virtual_network.vcn.id
+  display_name               = "public_subnet_${local.project_name}_${local.deploy_id}"
+  dns_label                  = "public"
+  prohibit_public_ip_on_vnic = false
+  security_list_ids          = [
+        oci_core_virtual_network.vcn.default_security_list_id, 
+        oci_core_security_list.public_http_seclist.id
+        ]
+  route_table_id             = oci_core_route_table.route_private.id
+  dhcp_options_id            = oci_core_virtual_network.vcn.default_dhcp_options_id
+}
+
+resource "oci_core_subnet" "app_subnet" {
+  cidr_block                 = "10.0.2.0/24"
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   display_name               = "app_subnet_${local.project_name}_${local.deploy_id}"
@@ -62,15 +77,77 @@ resource "oci_core_subnet" "app_subnet" {
 }
 
 resource "oci_core_subnet" "db_subnet" {
-  cidr_block                 = "10.0.2.0/24"
+  cidr_block                 = "10.0.3.0/24"
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   display_name               = "db_subnet_${local.project_name}_${local.deploy_id}"
   dns_label                  = "db"
   prohibit_public_ip_on_vnic = true
-  security_list_ids          = [oci_core_virtual_network.vcn.default_security_list_id, oci_core_security_list.db_seclist.id]
+  security_list_ids          = [
+      oci_core_virtual_network.vcn.default_security_list_id, 
+      oci_core_security_list.db_seclist.id,
+      oci_core_security_list.public_db_seclist.id
+    ]
   route_table_id             = oci_core_route_table.route_private.id
   dhcp_options_id            = oci_core_virtual_network.vcn.default_dhcp_options_id
+}
+
+resource "oci_core_security_list" "public_http_seclist" {
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_virtual_network.vcn.id
+  display_name   = "HTTP Security List"
+
+  ingress_security_rules {
+    protocol  = local.tcp
+    source    = local.anywhere
+    stateless = false
+
+    tcp_options {
+      min = 443
+      max = 443
+    }
+  }
+
+  # ONS and FAN
+  ingress_security_rules {
+    protocol  = local.tcp
+    source    = local.anywhere
+    stateless = false
+
+    tcp_options {
+      min = 80
+      max = 80
+    }
+  }
+}
+
+resource "oci_core_security_list" "public_db_seclist" {
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_virtual_network.vcn.id
+  display_name   = "Public DB Security List"
+
+  ingress_security_rules {
+    protocol  = local.tcp
+    source    = oci_core_subnet.public_subnet.cidr_block
+    stateless = false
+
+    tcp_options {
+      min = 1521
+      max = 1521
+    }
+  }
+
+  # ONS and FAN
+  ingress_security_rules {
+    protocol  = local.tcp
+    source    = oci_core_subnet.public_subnet.cidr_block
+    stateless = false
+
+    tcp_options {
+      min = 6200
+      max = 6200
+    }
+  }
 }
 
 resource "oci_core_security_list" "db_seclist" {
