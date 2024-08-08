@@ -1,0 +1,16 @@
+REM from within ROOT to see all containers
+SELECT
+    CON_ID,
+    OWNER,
+    OBJECT_NAME,
+    STATUS,
+    SHARING,
+    ORACLE_MAINTAINED
+FROM
+    CDB_OBJECTS
+WHERE
+    OBJECT_NAME = 'DBMS_CLOUD'
+ORDER BY
+    CON_ID;
+
+EXIT;

@@ -9,12 +9,18 @@ import {
   getRegions,
   searchCompartmentIdByName,
   getEFlexShapes,
+  listAvailabilityDomains,
 } from "./lib/oci.mjs";
 import { createSSHKeyPair } from "./lib/crypto.mjs";
 import {
   listDataScienceSessionShapes,
   listDataScienceSessionShapesFamilies,
 } from "./lib/oci/datascience.mjs";
+import {
+  listADBExaShapeFamilies,
+  listADBExaVersions,
+  listDBShapes,
+} from "./lib/oci/db.mjs";
 
 $.verbose = false;
 
@@ -37,9 +43,14 @@ await setNamespaceEnv();
 await setCompartmentEnv();
 const compartmentId = config.get("compartmentId");
 
+// await selectADBExaVersions();
+// await selectADBExaShapeFamilies();
+
+await selectBaseDbShape();
+
 await selectComputeShape();
-await selectDataScienceShape();
-await selectNotebookSize();
+// await selectDataScienceShape();
+// await selectNotebookSize();
 
 await createSSHKeys(projectName);
 
@@ -111,10 +122,97 @@ async function setCompartmentEnv() {
     .then(async (answers) => {
       const compartmentName = answers.compartmentName;
       const compartmentId = await searchCompartmentIdByName(
+        { profile, region: regionName },
         compartmentName || "root"
       );
       config.set("compartmentName", compartmentName);
       config.set("compartmentId", compartmentId);
+    });
+}
+
+async function selectADBExaVersions() {
+  const versions = await listADBExaVersions(
+    { region: regionName, profile },
+    compartmentId
+  );
+  await inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "autonomous_exadata_version",
+        message: "Select Autonomous Exadata Version",
+        choices: versions.reverse(),
+      },
+    ])
+    .then((answers) => {
+      config.set(
+        "autonomous_exadata_version",
+        answers.autonomous_exadata_version
+      );
+    });
+}
+
+async function selectADBExaShapeFamilies() {
+  const ads = await listAvailabilityDomains(
+    { region: regionName, profile },
+    compartmentId
+  );
+  const listAutonomousExadataShapes = await listADBExaShapeFamilies(
+    { profile, region: regionName },
+    compartmentId,
+    ads[0].name
+  );
+
+  await inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "autonomous_exadata_shape",
+        message: "Select Autonomous Exadata Shape",
+        choices: listAutonomousExadataShapes,
+      },
+    ])
+    .then((answers) => {
+      config.set("autonomous_exadata_shape", answers.autonomous_exadata_shape);
+    });
+}
+
+async function selectBaseDbShape() {
+  const listShapes = await listDBShapes(
+    { profile, region: regionName },
+    compartmentId,
+    "VIRTUALMACHINE"
+  );
+
+  let choices;
+  const intelShapes = listShapes
+    .filter((s) => s["shape-type"].includes("INTEL"))
+    .map((s) => `${s.shape} (${s["shape-type"]})`)
+    .sort();
+  const amdShapes = listShapes
+    .filter((s) => s["shape-type"].includes("AMD"))
+    .map((s) => `${s.shape} (${s["shape-type"]})`)
+    .sort();
+  const ampereShapes = listShapes
+    .filter((s) => s["shape-type"].includes("AMPERE"))
+    .map((s) => `${s.shape} (${s["shape-type"]})`)
+    .sort();
+  choices = [...intelShapes, ...amdShapes, ...ampereShapes];
+
+  await inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "base_db_shape",
+        message: "Select Base DB Shape",
+        choices: choices,
+        filter(val) {
+          return listShapes.find((r) => val.includes(r.shape)).shape;
+        },
+      },
+    ])
+    .then((answers) => {
+      config.set("base_db_shape", answers.base_db_shape);
     });
 }
 

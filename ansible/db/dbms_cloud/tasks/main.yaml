@@ -1,0 +1,303 @@
+
+---
+# Set SQLPATH to HOME
+- name: Cat bashrc
+  ansible.builtin.command: cat $HOME/.bashrc
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  register: bashrc_content
+- name: Set SQLPATH to HOME
+  ansible.builtin.shell: echo "export SQLPATH=$HOME" >> $HOME/.bashrc
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  when: bashrc_content.stdout.find('SQLPATH') == -1
+- name: Create dbc directory
+  ansible.builtin.file:
+    path: /home/oracle/dbc
+    state: directory
+    owner: oracle
+    group: oinstall
+    mode: '0744'
+- name: Copy login.sql file
+  ansible.builtin.copy:
+    src: login.sql
+    dest: /home/oracle/login.sql
+    owner: oracle
+    group: oinstall
+    mode: '0640'
+- name: Copy highlight.json file
+  ansible.builtin.copy:
+    src: highlight.json
+    dest: /home/opc/highlight.json
+    owner: oracle
+    group: oinstall
+    mode: '0640'
+# Save ORACLE_HOME directory path
+- name: Save ORACLE_HOME directory path
+  ansible.builtin.command: echo $ORACLE_HOME
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  register: oracle_home_path
+- name: Create data pump dir directory
+  ansible.builtin.file:
+    path: "{{ oracle_home_path.stdout }}/dump"
+    state: directory
+    owner: oracle
+    group: oinstall
+    mode: '0744'
+- name: Copy SQL files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/oracle/dbc" 
+    owner: oracle
+    group: oinstall
+    mode: '0640'
+  with_fileglob:
+    - "*.sql"
+
+# Find TDE Wallet folder
+- name: Find TDE Wallet folder
+  ansible.builtin.command: find "/opt/oracle/dcs/commonstore/wallets" -name "{{project_name}}*"
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  register: tde_wallet_path
+
+# Get PDB URL
+- name: Get PDB URL
+  ansible.builtin.shell: lsnrctl service | grep "pdb" | grep -v "paas" | cut -d "\"" -f2
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  register: pdb_url
+
+# Get, copy, and extract dbc_certs.tar
+- name: Create dbc_certs directory
+  ansible.builtin.file:
+    path: /home/oracle/dbc_certs
+    state: directory
+    owner: oracle
+    group: oinstall
+    mode: '0744'
+- name: Copy dbc_certs tar file
+  ansible.builtin.copy:
+    src: "dbc_certs.tar"
+    dest: "/home/oracle/dbc_certs.tar"
+    owner: oracle
+    group: oinstall
+    mode: '0640'
+- name: Extract dbc_certs.tar
+  ansible.builtin.command: tar -xf /home/oracle/dbc_certs.tar -C /home/oracle/dbc_certs
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+
+# Installing DBMS_CLOUD
+- name: Copy dbms_cloud_install.sh template (Installing DBMS_CLOUD)
+  ansible.builtin.template:
+    src: dbms_cloud_install.sh.j2
+    dest: "/home/oracle/dbc/dbms_cloud_install.sh"
+    owner: oracle
+    group: oinstall
+    mode: '0740'
+- name: Copy setup_data_pump.sql template
+  ansible.builtin.template:
+    src: setup_data_pump.sql.j2
+    dest: /home/oracle/setup_data_pump.sql
+    owner: oracle
+    group: oinstall
+    mode: '0640'
+- name: Copy setup_data_pump_permissions.sql template
+  ansible.builtin.template:
+    src: setup_data_pump_permissions.sql.j2
+    dest: /home/oracle/setup_data_pump_permissions.sql
+    owner: oracle
+    group: oinstall
+    mode: '0640'
+- name: Installing DBMS_CLOUD
+  ansible.builtin.shell: "/home/oracle/dbc/dbms_cloud_install.sh"
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+
+# Create SSL Wallet with Certificates
+- name: Copy dbms_cloud_wallet_ssl template (Create SSL Wallet with Certificates)
+  ansible.builtin.template:
+    src: dbms_cloud_wallet_ssl.sh.j2
+    dest: "/home/oracle/dbms_cloud_wallet_ssl.sh"
+    owner: oracle
+    group: oinstall
+    mode: '0740'
+- name: Check the SSL certificates are present
+  ansible.builtin.command: orapki wallet display -wallet .
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  args:
+    chdir: "{{ tde_wallet_path.stdout }}/tde"
+  register: display_wallet_orapki
+- name: Create SSL Wallet with Certificates
+  ansible.builtin.command: /home/oracle/dbms_cloud_wallet_ssl.sh
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  args:
+    chdir: "{{ tde_wallet_path.stdout }}/tde"
+  when: (display_wallet_orapki.stdout.find('DigiCert') == -1) or 
+        (display_wallet_orapki.stdout.find('VeriSign') == -1)
+- name: Check SSL Wallet with Certificates
+  ansible.builtin.command: orapki wallet display -wallet .
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  args:
+    chdir: "{{ tde_wallet_path.stdout }}/tde"
+
+# Configure the Database with ACEs for DBMS_CLOUD
+- name: Copy dbc_aces template (Configure the Database with ACEs for DBMS_CLOUD)
+  ansible.builtin.template:
+    src: dbc_aces.sql.j2
+    dest: "/home/oracle/dbc_aces.sql"
+    owner: oracle
+    group: oinstall
+    mode: '0740'
+- name: Configure the Database with ACEs for DBMS_CLOUD
+  ansible.builtin.command: sql / as sysdba @/home/oracle/dbc_aces.sql
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+
+# Verify Configuration of DBMS_CLOUD
+- name: Copy dbc_verify template (Verify Configuration of DBMS_CLOUD)
+  ansible.builtin.template:
+    src: dbc_verify.sql.j2
+    dest: "/home/oracle/dbc_verify.sql"
+    owner: oracle
+    group: oinstall
+    mode: '0740'
+- name: Verify Configuration of DBMS_CLOUD
+  ansible.builtin.command: sql / as sysdba @/home/oracle/dbc_verify.sql
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+- name: Copy init/hotel.sql template
+  ansible.builtin.template:
+    src: hotel.sql.j2
+    dest: /home/oracle/hotel.sql
+    owner: oracle
+    group: oinstall
+    mode: '0640'
+- name: Init Hotel
+  ansible.builtin.command: "sql / as sysdba @/home/oracle/hotel.sql"
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  environment:
+    ORACLE_PDB_SID: "{{ db_pdb_name }}"
+
+# Grant the minimal privileges to a user or role for using DBMS_CLOUD
+- name: Grant the minimal privileges to a user or role for using DBMS_CLOUD
+  ansible.builtin.command: sql / as sysdba @/home/oracle/dbc/dbc_grant_privileges.sql
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  environment:
+    ORACLE_PDB_SID: "{{ db_pdb_name }}"
+
+# Configure ACEs for a user or role to use DBMS_CLOUD
+- name: Copy dbc_aces_config.sql template (Configure ACEs for a user or role to use DBMS_CLOUD)
+  ansible.builtin.template:
+    src: dbc_aces_config.sql.j2
+    dest: "/home/oracle/dbc_aces_config.sql"
+    owner: oracle
+    group: oinstall
+    mode: '0740'
+- name: Configure ACEs for a user or role to use DBMS_CLOUD
+  ansible.builtin.command: sql / as sysdba @/home/oracle/dbc_aces_config.sql
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  environment:
+    ORACLE_PDB_SID: "{{ db_pdb_name }}"
+- name: Copy dbc_credentials.sql template
+  ansible.builtin.template:
+    src: dbc_credentials.sql.j2
+    dest: "/home/oracle/dbc_credentials.sql"
+    owner: oracle
+    group: oinstall
+    mode: '0740'
+- name: Create credentials
+  ansible.builtin.command: sql hotel/"{{db_pdb_password}}"@localhost:1521/{{pdb_url.stdout}} @/home/oracle/dbc_credentials.sql
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  register: dbc_credentials
+- name: Copy dbc_os_credentials_check.sql template (Configure ACEs for a user or role to use DBMS_CLOUD)
+  ansible.builtin.template:
+    src: dbc_os_credentials_check.sql.j2
+    dest: "/home/oracle/dbc_os_credentials_check.sql"
+    owner: oracle
+    group: oinstall
+    mode: '0740'
+- name: Create credentials (Configure ACEs for a user or role to use DBMS_CLOUD)
+  ansible.builtin.command: sql hotel/"{{db_pdb_password}}"@localhost:1521/{{pdb_url.stdout}} @/home/oracle/dbc_os_credentials_check.sql
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+- name: Check DBMS_CLOUD installation
+  ansible.builtin.command: sql / as sysdba @/home/oracle/dbc/check_dbms_cloud_install.sql
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  register: check_dbms_cloud_install
+- debug: msg="{{ check_dbms_cloud_install.stdout_lines }}"
+- name: Setup data pump
+  ansible.builtin.command: "sql / as sysdba @/home/oracle/setup_data_pump.sql"
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  register: setup_data_pump
+- name: Setup data pump permissions
+  ansible.builtin.command: "sql / as sysdba @/home/oracle/setup_data_pump_permissions.sql"
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle
+  register: setup_data_pump_permissions
+  environment:
+    ORACLE_PDB_SID: "{{ db_pdb_name }}"
+- name: Copy download_model.sql template
+  ansible.builtin.template:
+    src: download_model.sql.j2
+    dest: "/home/oracle/download_model.sql"
+    owner: oracle
+    group: oinstall
+    mode: '0740'
+- name: Download ONNX Model to DATA_PUMP_DIR
+  ansible.builtin.command: sql hotel/"{{db_pdb_password}}"@localhost:1521/{{pdb_url.stdout}} @/home/oracle/download_model.sql
+  remote_user: opc
+  become_exe: "sudo su  - "
+  become_method: su
+  become_user: oracle

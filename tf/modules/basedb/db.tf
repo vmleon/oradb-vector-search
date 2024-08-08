@@ -1,5 +1,5 @@
 resource "oci_database_db_system" "db_system" {
-  availability_domain = lookup(data.oci_identity_availability_domains.ads.availability_domains[0], "name")
+  availability_domain = lookup(var.ads[0], "name")
   compartment_id      = var.compartment_ocid
   subnet_id           = var.subnet_ocid
   cpu_core_count      = var.cpu_core_count
@@ -38,4 +38,10 @@ resource "oci_database_db_system" "db_system" {
   db_system_options {
     storage_management = var.db_storage_management
   }
+}
+
+
+resource "time_sleep" "wait_for_db" {
+  depends_on      = [oci_database_db_system.db_system]
+  create_duration = "2m"
 }

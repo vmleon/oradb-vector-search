@@ -1,44 +1,97 @@
 #!/bin/bash
 
+touch /home/opc/bootstrap.lock
+
 # Update and upgrade repo
 dnf update -y
 dnf upgrade -y
-dnf install jdk-22-headless -y
-dnf install sqlcl -y
+dnf install ansible -y
 
-# Creating highlight.json
-cat <<EOT >> /home/opc/highlight.json
+curl "${embedding_model_par}" -o /home/opc/mall_MiniLM_L12_v2.onnx
+chown -R opc:opc /home/opc/mall_MiniLM_L12_v2.onnx
+
+curl "${hotels_dataset_par}" -o /home/opc/hotels.zip
+chown -R opc:opc /home/opc/hotels.zip
+
+# Get ansible_compute
+curl "${ansible_compute_par_full_path}" -o /home/opc/ansible_compute.zip
+mkdir -p /home/opc/ansible_compute
+unzip /home/opc/ansible_compute.zip -d /home/opc/ansible_compute && \
+    rm /home/opc/ansible_compute.zip
+chown -R opc:opc /home/opc/ansible_compute
+
+# Get ansible_db
+curl "${ansible_db_par_full_path}" -o /home/opc/ansible_db.zip
+mkdir -p /home/opc/ansible_db
+unzip /home/opc/ansible_db.zip -d /home/opc/ansible_db && \
+    rm /home/opc/ansible_db.zip
+
+# Get certificates
+curl "https://objectstorage.us-phoenix-1.oraclecloud.com/p/QsLX1mx9A-vnjjohcC7TIK6aTDFXVKr0Uogc2DAN-Rd7j6AagsmMaQ3D3Ti4a9yU/n/adwcdemo/b/CERTS/o/dbc_certs.tar" -o /home/opc/ansible_db/dbms_cloud/files/dbc_certs.tar
+chown -R opc:opc /home/opc/ansible_db
+
+# Creating private.key
+cat <<EOT >> /home/opc/private.key
+${private_key_content}
+EOT
+chown opc:opc /home/opc/private.key
+chmod 400 /home/opc/private.key
+
+cat <<EOT >> /home/opc/ansible_params.json
 {
-    "highlights": [
-        {
-            "type": "regex",
-            "test": "^[0-9]+$",
-            "color": "RED"
-        },
-        {
-            "type": "regex",
-            "test": "^[^0-9]+$",
-            "color": "GREEN"
-        }
-    ]
+  "project_name": "${project_name}",
+  "db_url": "${db_url}",
+  "db_pdb_name": "${db_service}pdb",
+  "db_password": "${db_password}",
+  "db_pdb_password": "${db_pdb_password}",
+  "db_pdb_url": "${db_pdb_url}",
+  "db_home_location": "${db_home_location}",
+  "embedding_model_par": "${embedding_model_par}",
+  "os_credential_user": "${os_credential_user}",
+  "os_credential_token": "${os_credential_token}",
+  "os_namespace": "${os_namespace}",
+  "region_name": "${region_name}",
+  "bucket_name": "${bucket_name}",
+  "certificates_tar_path": "/home/opc/dbc_certs.tar"
 }
 EOT
-chown opc:opc /home/opc/highlight.json
+chown opc:opc /home/opc/ansible_params.jsonh
 
-# Creating highlight.json
-cat <<EOT >> /home/opc/connection.sql
-conn -save basedb -url ${db_url} -savepwd -u system -password '${db_password}'
+cat <<EOT >> /home/opc/server.ini
+[compute]
+localhost ansible_connection=local ansible_user=root
+
+[compute:vars]
+ansible_python_interpreter="/usr/bin/python3"
 EOT
-chown opc:opc /home/opc/connection.sql
+chown opc:opc /home/opc/server.ini
 
-# Creating login.sql
-cat <<EOT >> /home/opc/login.sql
-SET statusbar ON
+cat <<EOT >> /home/opc/db.ini
+[db]
+vector ansible_host=${db_private_ip}
 
-SET highlighting ON
-SET sqlformat ansiconsole -config=highlight.json
-
+[db:vars]
+ansible_python_interpreter="/usr/bin/python3"
+ansible_user=opc
+ansible_private_key_file=/home/opc/private.key
 EOT
-chown opc:opc /home/opc/login.sql
+chown opc:opc /home/opc/db.ini
 
-echo exit | sql /nolog @/home/opc/connection.sql
+touch /home/opc/ansible-playbook.log
+chown opc:opc /home/opc/ansible-playbook.log
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" \
+    ansible-galaxy collection install ansible.posix | tee -a /home/opc/ansible-playbook.log
+
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" \
+    ANSIBLE_HOST_KEY_CHECKING=False \
+    ansible-playbook \
+        -i /home/opc/db.ini \
+        --extra-vars "@/home/opc/ansible_params.json" \
+        /home/opc/ansible_db/server.yaml | tee -a /home/opc/ansible-playbook.log
+
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" ansible-playbook \
+    -i /home/opc/server.ini \
+    --extra-vars "@/home/opc/ansible_params.json" \
+    /home/opc/ansible_compute/server.yaml | tee -a /home/opc/ansible-playbook.log
+
+rm /home/opc/bootstrap.lock

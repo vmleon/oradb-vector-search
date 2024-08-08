@@ -1,0 +1,51 @@
+-- model attributes
+SELECT
+    MODEL_NAME,
+    ATTRIBUTE_NAME,
+    ATTRIBUTE_TYPE,
+    DATA_TYPE,
+    VECTOR_INFO
+FROM
+    USER_MINING_MODEL_ATTRIBUTES
+WHERE
+    MODEL_NAME = 'DOC_MODEL'
+ORDER BY
+    ATTRIBUTE_NAME;
+
+-- model info
+SELECT
+    MODEL_NAME,
+    MINING_FUNCTION,
+    ALGORITHM,
+    ALGORITHM_TYPE,
+    MODEL_SIZE
+FROM
+    USER_MINING_MODELS
+WHERE
+    MODEL_NAME = 'DOC_MODEL'
+ORDER BY
+    MODEL_NAME;
+
+-- model statistics
+SELECT
+    *
+FROM
+    DM$VMDOC_MODEL
+ORDER BY
+    NAME;
+
+-- model detail
+SELECT
+    *
+FROM
+    DM$VPDOC_MODEL
+ORDER BY
+    NAME;
+
+-- more model details
+SELECT
+    *
+FROM
+    DM$VJDOC_MODEL;
+
+EXIT;

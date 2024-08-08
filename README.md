@@ -47,3 +47,7 @@ The final user prompt along with the similar documents found by the vector searc
 
 - [Spring AI for RAG on Oracle 23ai Vector DB with OpenAI and private LLMs](https://github.com/oracle-devrel/springai-rag-db23ai)
 - [RAG with OCI, LangChain, and VLLMs](https://github.com/oracle-devrel/technology-engineering/blob/rag-marketing-update/cloud-infrastructure/ai-infra-gpu/AI%20Infrastructure/rag-langchain-vllm-mistral/README.md)
+
+## Others
+
+I am using [Hotels Dataset](https://www.kaggle.com/datasets/raj713335/tbo-hotels-dataset?resource=download) from Kaggle.

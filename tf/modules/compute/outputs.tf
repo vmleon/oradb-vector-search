@@ -11,5 +11,5 @@ output "name" {
 }
 
 output "bastion_id" {
-  value = oci_bastion_bastion.subnet_bastion.id
+  value = oci_bastion_bastion.app_subnet_bastion.id
 }

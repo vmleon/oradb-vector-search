@@ -6,11 +6,18 @@ variable "deploy_id" {
   type = string
 }
 
+variable "region" {
+  type = string
+}
+
 variable "tenancy_ocid" {
   type = string
 }
 
 variable "compartment_ocid" {
+  type = string
+}
+variable "config_file_profile" {
   type = string
 }
 
@@ -51,6 +58,10 @@ variable "db_edition" {
   type = string
   description = "STANDARD_EDITION, ENTERPRISE_EDITION, ENTERPRISE_EDITION_HIGH_PERFORMANCE, ENTERPRISE_EDITION_EXTREME_PERFORMANCE"
   default = "STANDARD_EDITION"
+}
+
+variable "ads" {
+  type = list(any)
 }
 
 variable "db_name" {
@@ -109,5 +120,5 @@ variable "db_storage_management" {
 // oci db system-shape list --compartment-id
 variable "shape" {
   type = string
-  default = "VM.Standard.E4.Flex"
+  default = "VM.Standard2.1" # "VM.Standard.E5.Flex"
 }

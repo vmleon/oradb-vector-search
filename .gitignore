@@ -7,7 +7,6 @@
 generated/
 .env.json
 *.bkp
-*.zip
 kubeconfig
 
 
@@ -232,3 +231,4 @@ out/
 
 .DS_Store
 onnx-output-folder/
+all_MiniLM_L12_v2_augmented/

@@ -1,0 +1,30 @@
+@$ORACLE_HOME/rdbms/admin/sqlsessstart.sql
+
+-- you must not change the owner of the functionality to avoid future issues
+define clouduser=C##CLOUD$SERVICE
+
+-- CUSTOMER SPECIFIC SETUP, NEEDS TO BE PROVIDED BY THE CUSTOMER
+-- - SSL Wallet directory
+define sslwalletdir="{{ tde_wallet_path.stdout }}/tde"
+
+-- Create New ACL / ACE s
+BEGIN
+ -- Allow all hosts for HTTP/HTTP_PROXY
+    DBMS_NETWORK_ACL_ADMIN.APPEND_HOST_ACE( HOST =>'*', LOWER_PORT => 443, UPPER_PORT => 443, ACE => XS$ACE_TYPE( PRIVILEGE_LIST => XS$NAME_LIST('http', 'http_proxy'), PRINCIPAL_NAME => UPPER('&clouduser'), PRINCIPAL_TYPE => XS_ACL.PTYPE_DB));
+ -- Allow wallet access
+    DBMS_NETWORK_ACL_ADMIN.APPEND_WALLET_ACE( WALLET_PATH => 'file:&sslwalletdir', ACE => XS$ACE_TYPE(PRIVILEGE_LIST => XS$NAME_LIST('use_client_certificates', 'use_passwords'), PRINCIPAL_NAME => UPPER('&clouduser'), PRINCIPAL_TYPE => XS_ACL.PTYPE_DB));
+END;
+/
+
+-- Setting SSL_WALLET database property
+BEGIN
+ -- comment out the IF block when installed in non-CDB environments
+    IF SYS_CONTEXT('userenv', 'con_name') = 'CDB$ROOT' THEN
+        EXECUTE IMMEDIATE 'alter database property set ssl_wallet=''&sslwalletdir''';
+    END IF;
+END;
+/
+
+@$ORACLE_HOME/rdbms/admin/sqlsessend.sql
+
+EXIT;

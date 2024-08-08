@@ -22,6 +22,14 @@ Install the dependencies for the scripts in [Google ZX](https://google.github.io
 cd scripts/ && npm install && cd ..
 ```
 
+> Download pre-packaged model from Oracle
+>
+> [Now Available! Pre-built Embedding Generation model for Oracle Database 23ai](https://blogs.oracle.com/machinelearning/post/use-our-prebuilt-onnx-model-now-available-for-embedding-generation-in-oracle-database-23ai)
+>
+> `wget https://adwc4pm.objectstorage.us-ashburn-1.oci.customer-oci.com/p/VBRD9P8ZFWkKvnfhrWxkpPe8K03-JIoM5h_8EJyJcpE80c108fuUjg7R5L5O7mMZ/n/adwc4pm/b/OML-Resources/o/all_MiniLM_L12_v2_augmented.zip`
+>
+> `unzip all_MiniLM_L12_v2_augmented.zip -d all_MiniLM_L12_v2_augmented`
+
 Answer all the questions from `setenv.mjs` script:
 
 ```bash
@@ -56,31 +64,37 @@ Paste the yellow command to connect with SSH into the compute instance.
 
 To connect, asnwer `yes` to add the fingerprint to the know hosts.
 
-When you are in the compute instance, create the connection `basedb` with `connection.sql` script.
+> NOTE The installation of `DBMS_CLOUD` is done automatically based on this MOS [Doc ID 2748362.1](https://support.oracle.com/rs?type=doc&id=2748362.1)
+
+> Work In Progress:
 
 ```bash
-echo exit | sql /nolog @/home/opc/connection.sql
+# sql /nolog @/home/opc/conn/cdb.sql
+# sql /nolog @/home/opc/conn/pdb.sql
+# sql /nolog @/home/opc/conn/hotel.sql
 ```
 
-Connect with the ADB high service.
+> Work In Progress:
 
 ```bash
-sql -name basedb
+# sql -name syspdb @init/dowload_model.sql
+# sql -name hotel @init/setup.sql
+# sql -name syspdb @init/import_onnx.sql
 ```
 
-Run a query to test the connection.
+Run a simple SELECT command to check everything is working fine.
 
-```sql
-SELECT sysdate, 'Oracle Database' FROM DUAL;
+```bash
+echo "select * from hotels; exit;" | sql -name hotel
 ```
 
-To exit **SQLcl**:
+Run a simple Vector Search command:
 
-```sql
-quit
+```bash
+cat queries/query.sql | sql -name hotel
 ```
 
-To exit the SSH connection with the compute intance:
+To exit the SSH connection with the compute instance:
 
 ```bash
 exit

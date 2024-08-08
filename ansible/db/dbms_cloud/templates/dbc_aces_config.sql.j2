@@ -1,0 +1,26 @@
+@$ORACLE_HOME/rdbms/admin/sqlsessstart.sql
+
+-- target sample role
+define cloudrole=CLOUD_USER
+
+-- target sample user
+define clouduser=HOTEL
+
+-- CUSTOMER SPECIFIC SETUP, NEEDS TO BE PROVIDED BY THE CUSTOMER
+-- - SSL Wallet directory
+define sslwalletdir="{{ tde_wallet_path.stdout }}/tde"
+
+-- Create New ACL / ACE s
+BEGIN
+ 
+  -- Allow all hosts for HTTP/HTTP_PROXY
+  DBMS_NETWORK_ACL_ADMIN.APPEND_HOST_ACE( HOST =>'*', LOWER_PORT => 443, UPPER_PORT => 443, ACE => XS$ACE_TYPE( PRIVILEGE_LIST => XS$NAME_LIST('http', 'http_proxy'), PRINCIPAL_NAME => UPPER('&cloudrole'), PRINCIPAL_TYPE => XS_ACL.PTYPE_DB));
+ 
+  -- Allow wallet access
+  DBMS_NETWORK_ACL_ADMIN.APPEND_WALLET_ACE( WALLET_PATH => 'file:&sslwalletdir', ACE => XS$ACE_TYPE(PRIVILEGE_LIST => XS$NAME_LIST('use_client_certificates', 'use_passwords'), PRINCIPAL_NAME => UPPER('&cloudrole'), PRINCIPAL_TYPE => XS_ACL.PTYPE_DB));
+END;
+/
+
+@$ORACLE_HOME/rdbms/admin/sqlsessend.sql
+
+EXIT;

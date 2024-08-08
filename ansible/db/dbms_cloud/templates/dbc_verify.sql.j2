@@ -1,0 +1,57 @@
+-- you must not change the owner of the functionality to avoid future issues
+define clouduser=C##CLOUD$SERVICE
+
+-- CUSTOMER SPECIFIC SETUP, NEEDS TO BE PROVIDED BY THE CUSTOMER
+-- - SSL Wallet directory and password
+define sslwalletdir="{{ tde_wallet_path.stdout }}/tde"
+
+define sslwalletpwd="{{ db_password }}"
+
+-- create and run this procedure as owner of the ACLs, which is the future owner
+-- of DBMS_CLOUD
+CREATE OR REPLACE PROCEDURE &CLOUDUSER..GET_PAGE(
+    URL IN VARCHAR2
+) AS
+    REQUEST_CONTEXT UTL_HTTP.REQUEST_CONTEXT_KEY;
+    REQ             UTL_HTTP.REQ;
+    RESP            UTL_HTTP.RESP;
+    DATA            VARCHAR2(32767) DEFAULT NULL;
+    ERR_NUM         NUMBER DEFAULT 0;
+    ERR_MSG         VARCHAR2(4000) DEFAULT NULL;
+BEGIN
+ -- Create a request context with its wallet and cookie table
+    REQUEST_CONTEXT := UTL_HTTP.CREATE_REQUEST_CONTEXT( WALLET_PATH => 'file:&sslwalletdir', WALLET_PASSWORD => '&sslwalletpwd');
+ -- Make a HTTP request using the private wallet and cookie
+ -- table in the request context
+    REQ := UTL_HTTP.BEGIN_REQUEST( URL => URL, REQUEST_CONTEXT => REQUEST_CONTEXT);
+    RESP := UTL_HTTP.GET_RESPONSE(REQ);
+    DBMS_OUTPUT.PUT_LINE('valid response');
+EXCEPTION
+    WHEN OTHERS THEN
+        ERR_NUM := SQLCODE;
+        ERR_MSG := SUBSTR(SQLERRM, 1, 3800);
+        DBMS_OUTPUT.PUT_LINE('possibly raised PLSQL/SQL error: '
+                             ||ERR_NUM
+                             ||' - '
+                             ||ERR_MSG);
+        UTL_HTTP.END_RESPONSE(RESP);
+        DATA := UTL_HTTP.GET_DETAILED_SQLERRM;
+        IF DATA IS NOT NULL THEN
+            DBMS_OUTPUT.PUT_LINE('possibly raised HTML error: '
+                                 ||DATA);
+        END IF;
+END;
+/
+
+set serveroutput on
+
+BEGIN
+    &CLOUDUSER..GET_PAGE('https://objectstorage.eu-frankfurt-1.oraclecloud.com');
+END;
+/
+
+set serveroutput off
+
+DROP PROCEDURE &CLOUDUSER..GET_PAGE;
+
+EXIT;

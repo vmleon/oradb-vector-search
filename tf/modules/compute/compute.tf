@@ -1,7 +1,23 @@
 locals {
   cloud_init_content = templatefile("${path.module}/userdata/bootstrap.tftpl", {
-    db_url        = var.db_url
-    db_password   = var.db_password
+    project_name                  = var.project_name
+    db_url                        = var.db_url
+    db_password                   = var.db_password
+    db_service                    = "${var.project_name}${var.deploy_id}"
+    db_pdb_url                    = var.db_pdb_url
+    db_private_ip                 = var.db_private_ip
+    private_key_content           = file(var.ssh_private_key_path)
+    db_pdb_password               = var.db_pdb_password
+    db_home_location              = var.db_home_location
+    embedding_model_par           = var.embedding_model_par
+    hotels_dataset_par            = var.hotels_dataset_par
+    os_credential_user            = var.os_credential_user
+    region_name                   = var.region
+    os_namespace                  = data.oci_objectstorage_namespace.os_namespace.namespace
+    bucket_name                   = var.bucket_name
+    os_credential_token           = var.os_credential_token
+    ansible_compute_par_full_path = var.ansible_compute_artifact_par_full_path
+    ansible_db_par_full_path      = var.ansible_db_artifact_par_full_path
   })
 }
 
@@ -15,10 +31,10 @@ data "oci_core_images" "ol8_images" {
 }
 
 resource "oci_core_instance" "instance" {
-  availability_domain = lookup(data.oci_identity_availability_domains.ads.availability_domains[0], "name")
-  compartment_id = var.compartment_ocid
-  display_name   = "${var.project_name}${var.deploy_id}"
-  shape          = var.instance_shape
+  availability_domain = lookup(var.ads[0], "name")
+  compartment_id      = var.compartment_ocid
+  display_name        = "${var.project_name}${var.deploy_id}"
+  shape               = var.instance_shape
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key

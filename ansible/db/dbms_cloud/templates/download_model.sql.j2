@@ -1,0 +1,10 @@
+BEGIN
+    DBMS_CLOUD.GET_OBJECT(
+        -- CREDENTIAL_NAME => 'OCI_OBJECT_STORAGE_VECTOR',
+        OBJECT_URI => '{{embedding_model_par}}',
+        DIRECTORY_NAME => 'DATA_PUMP_DIR'
+    );
+END;
+/
+
+EXIT;

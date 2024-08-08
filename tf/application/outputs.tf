@@ -6,8 +6,16 @@ output "instance_private_ip" {
   value = module.compute.private_ip
 }
 
-output "bastion_id" {
+output "app_bastion_id" {
   value = module.compute.bastion_id
+}
+
+output "db_service" {
+  value = module.basedb.db_service
+}
+
+output "db_system_id" {
+  value = module.basedb.db_system_id
 }
 
 output "instance_id" {
@@ -20,6 +28,16 @@ output "instance_name" {
   value = module.compute.name
 }
 
+output "db_home_location" {
+  value = module.basedb.db_home_location
+  sensitive = false
+}
+
+output "db_private_ip" {
+  value = module.basedb.private_ip
+  sensitive = false
+}
+
 output "db_url" {
   value = module.basedb.connection_string
   sensitive = false
@@ -30,6 +48,16 @@ output "db_password" {
   sensitive = true
 }
 
-output "datascience_notebook_session_url" {
-  value = module.datascience.ds_notebook_session_url
+output "db_pdb_url" {
+  value = module.basedb.pdb_connection_string
+  sensitive = false
 }
+
+output "db_pdb_password" {
+  value     = module.basedb.db_pdb_password
+  sensitive = true
+}
+
+# output "datascience_notebook_session_url" {
+#   value = module.datascience.ds_notebook_session_url
+# }

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+$ORACLE_HOME/perl/bin/perl $ORACLE_HOME/rdbms/admin/catcon.pl \
+    -u sys/{{db_password}} \
+    --force_pdb_mode 'READ WRITE' \
+    -b dbms_cloud_install \
+    -d /home/oracle/dbc \
+    -l /home/oracle/dbc dbms_cloud_install.sql

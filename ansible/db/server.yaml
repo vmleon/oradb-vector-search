@@ -1,0 +1,7 @@
+- name: Database
+  hosts: db
+  become: true
+  roles:
+    - dbms_cloud
+  environment:
+    SQLPATH: "$HOME"

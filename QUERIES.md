@@ -11,7 +11,7 @@ sqlplus vector/vector@orclpdb1
 ```sql
 DROP TABLE IF EXISTS t1;
 
-CREATE TABLE IF NOT EXISTS t1 (v  vector);
+CREATE TABLE IF NOT EXISTS t1 (v VECTOR);
 
 DESC t1
 ```
