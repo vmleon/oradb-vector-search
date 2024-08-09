@@ -252,8 +252,8 @@ INSERT INTO HOTELS(
 ),
 (
     36,
-    'Axel Hotel Barcelona & Urban Spa - Adults Only',
-    'Axel Hotel Barcelona & Urban Spa - Adults Only ofrece una terraza en la azotea y te sitúa a diez minutos a pie de Paseo de Gracia y Casa Batlló. Regálate una sesión de masajes en el spa, y prueba los platos de Nikkei 103, que se especializa en cocina peruana y sirve almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen una piscina al aire libre, un bar junto a la piscina y un centro de bienestar. La amabilidad del personal y la ubicación marcan la diferencia entre los viajeros. El transporte público se encuentra a muy poca distancia: Estación de metro Universitat está a 6 min y Estación de metro de Passeig de Gràcia, a 9 min.',
+    'Axel Hotel Barcelona Urban Spa - Adults Only',
+    'Axel Hotel Barcelona Urban Spa - Adults Only ofrece una terraza en la azotea y te sitúa a diez minutos a pie de Paseo de Gracia y Casa Batlló. Regálate una sesión de masajes en el spa, y prueba los platos de Nikkei 103, que se especializa en cocina peruana y sirve almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen una piscina al aire libre, un bar junto a la piscina y un centro de bienestar. La amabilidad del personal y la ubicación marcan la diferencia entre los viajeros. El transporte público se encuentra a muy poca distancia: Estación de metro Universitat está a 6 min y Estación de metro de Passeig de Gràcia, a 9 min.',
     'Barcelona',
     'Spain'
 );

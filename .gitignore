@@ -6,6 +6,7 @@
 .certs
 generated/
 .env.json
+*.zip
 *.bkp
 kubeconfig
 

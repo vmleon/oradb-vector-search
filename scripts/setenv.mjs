@@ -1,4 +1,5 @@
 #!/usr/bin/env zx
+import { spinner } from "zx";
 import Configstore from "configstore";
 import inquirer from "inquirer";
 import clear from "clear";
@@ -53,6 +54,8 @@ await selectComputeShape();
 // await selectNotebookSize();
 
 await createSSHKeys(projectName);
+
+await downloadDataset();
 
 console.log(`\nConfiguration file saved in: ${chalk.green(config.path)}`);
 
@@ -307,4 +310,20 @@ async function createSSHKeys(name) {
   config.set("publicKeyContent", publicKeyContent);
   config.set("publicKeyPath", `${sshPathParam}.pub`);
   console.log(`SSH key pair created: ${chalk.green(sshPathParam)}`);
+}
+
+async function downloadDataset() {
+  const outputFilePath = "dataset/hotel.zip";
+  const exists = await fs.pathExists(outputFilePath);
+  if (exists) {
+    console.log(`Dataset already downloaded ${chalk.yellow(outputFilePath)}`);
+  } else {
+    const datasetUrl =
+      "https://objectstorage.us-sanjose-1.oraclecloud.com/p/3wQ38o8tIN5wDKDgfs0FyvhEL6MN02-U0ZhiALaOgRqE9495PpTJjBTqPhWSSDJm/n/axwytvijqqld/b/public-content/o/hotels.zip";
+    await spinner(
+      "Downloading dataset",
+      () => $`wget -O ${outputFilePath} ${datasetUrl}`
+    );
+    console.log(`Dataset downloaded: ${chalk.green(outputFilePath)}`);
+  }
 }
