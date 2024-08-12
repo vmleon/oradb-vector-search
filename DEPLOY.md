@@ -66,22 +66,6 @@ To connect, asnwer `yes` to add the fingerprint to the know hosts.
 
 > NOTE The installation of `DBMS_CLOUD` is done automatically based on this MOS [Doc ID 2748362.1](https://support.oracle.com/rs?type=doc&id=2748362.1)
 
-> Work In Progress:
-
-```bash
-# sql /nolog @/home/opc/conn/cdb.sql
-# sql /nolog @/home/opc/conn/pdb.sql
-# sql /nolog @/home/opc/conn/hotel.sql
-```
-
-> Work In Progress:
-
-```bash
-# sql -name syspdb @init/dowload_model.sql
-# sql -name hotel @init/setup.sql
-# sql -name syspdb @init/import_onnx.sql
-```
-
 Run a simple SELECT command to check everything is working fine.
 
 ```bash
@@ -91,7 +75,7 @@ echo "select * from hotels; exit;" | sql -name hotel
 Run a simple Vector Search command:
 
 ```bash
-cat queries/query.sql | sql -name hotel
+sql -name hotel @queries/query.sql "I want a hotel near the airport" 2
 ```
 
 To exit the SSH connection with the compute instance:

@@ -313,7 +313,7 @@ async function createSSHKeys(name) {
 }
 
 async function downloadDataset() {
-  const outputFilePath = "dataset/hotel.zip";
+  const outputFilePath = "dataset/hotels.zip";
   const exists = await fs.pathExists(outputFilePath);
   if (exists) {
     console.log(`Dataset already downloaded ${chalk.yellow(outputFilePath)}`);
