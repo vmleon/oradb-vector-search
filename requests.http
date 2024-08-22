@@ -1,0 +1,32 @@
+###
+
+GET http://localhost:8080/api/hotels
+
+###
+
+GET http://localhost:8080/api/hotels/country
+
+###
+
+POST http://localhost:8080/api/hotels/search?q=Searching for hotels
+
+###
+
+POST http://localhost:8080/api/hotels/search?q=Hello World
+Content-Type: application/json
+
+{
+    "n": 2
+}
+
+###
+
+POST http://localhost:8080/api/hotels
+Content-Type: application/json
+
+{
+    "name": "New Hotel",
+    "description": "New Hotel description",
+    "city": "Madrid",
+    "country": "Spain"
+}

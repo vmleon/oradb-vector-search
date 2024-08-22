@@ -56,12 +56,12 @@ resource "oci_core_subnet" "public_subnet" {
   display_name               = "public_subnet_${local.project_name}_${local.deploy_id}"
   dns_label                  = "public"
   prohibit_public_ip_on_vnic = false
-  security_list_ids          = [
-        oci_core_virtual_network.vcn.default_security_list_id, 
-        oci_core_security_list.public_http_seclist.id
-        ]
-  route_table_id             = oci_core_route_table.route_private.id
-  dhcp_options_id            = oci_core_virtual_network.vcn.default_dhcp_options_id
+  security_list_ids = [
+    oci_core_virtual_network.vcn.default_security_list_id,
+    oci_core_security_list.public_http_seclist.id
+  ]
+  route_table_id  = oci_core_virtual_network.vcn.default_route_table_id // TODO check this route_private or default?
+  dhcp_options_id = oci_core_virtual_network.vcn.default_dhcp_options_id
 }
 
 resource "oci_core_subnet" "app_subnet" {
@@ -71,8 +71,8 @@ resource "oci_core_subnet" "app_subnet" {
   display_name               = "app_subnet_${local.project_name}_${local.deploy_id}"
   dns_label                  = "app"
   prohibit_public_ip_on_vnic = true
-  security_list_ids          = [oci_core_virtual_network.vcn.default_security_list_id]
-  route_table_id             = oci_core_route_table.route_private.id
+  security_list_ids          = [oci_core_virtual_network.vcn.default_security_list_id, oci_core_security_list.app_seclist.id]
+  route_table_id             = oci_core_route_table.route_private.id // TODO check this route_private or default?
   dhcp_options_id            = oci_core_virtual_network.vcn.default_dhcp_options_id
 }
 
@@ -83,19 +83,18 @@ resource "oci_core_subnet" "db_subnet" {
   display_name               = "db_subnet_${local.project_name}_${local.deploy_id}"
   dns_label                  = "db"
   prohibit_public_ip_on_vnic = true
-  security_list_ids          = [
-      oci_core_virtual_network.vcn.default_security_list_id, 
-      oci_core_security_list.db_seclist.id,
-      oci_core_security_list.public_db_seclist.id
-    ]
-  route_table_id             = oci_core_route_table.route_private.id
-  dhcp_options_id            = oci_core_virtual_network.vcn.default_dhcp_options_id
+  security_list_ids = [
+    oci_core_virtual_network.vcn.default_security_list_id,
+    oci_core_security_list.db_seclist.id
+  ]
+  route_table_id  = oci_core_route_table.route_private.id // TODO check this route_private or default?
+  dhcp_options_id = oci_core_virtual_network.vcn.default_dhcp_options_id
 }
 
 resource "oci_core_security_list" "public_http_seclist" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_virtual_network.vcn.id
-  display_name   = "HTTP Security List"
+  display_name   = "Public HTTP Security List"
 
   ingress_security_rules {
     protocol  = local.tcp
@@ -108,7 +107,6 @@ resource "oci_core_security_list" "public_http_seclist" {
     }
   }
 
-  # ONS and FAN
   ingress_security_rules {
     protocol  = local.tcp
     source    = local.anywhere
@@ -121,10 +119,10 @@ resource "oci_core_security_list" "public_http_seclist" {
   }
 }
 
-resource "oci_core_security_list" "public_db_seclist" {
+resource "oci_core_security_list" "app_seclist" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_virtual_network.vcn.id
-  display_name   = "Public DB Security List"
+  display_name   = "Private App and Web Security List"
 
   ingress_security_rules {
     protocol  = local.tcp
@@ -132,22 +130,22 @@ resource "oci_core_security_list" "public_db_seclist" {
     stateless = false
 
     tcp_options {
-      min = 1521
-      max = 1521
+      min = 8080
+      max = 8080
     }
   }
 
-  # ONS and FAN
   ingress_security_rules {
     protocol  = local.tcp
     source    = oci_core_subnet.public_subnet.cidr_block
     stateless = false
 
     tcp_options {
-      min = 6200
-      max = 6200
+      min = 80
+      max = 80
     }
   }
+
 }
 
 resource "oci_core_security_list" "db_seclist" {

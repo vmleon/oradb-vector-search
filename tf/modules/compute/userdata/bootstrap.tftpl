@@ -7,11 +7,45 @@ dnf update -y
 dnf upgrade -y
 dnf install ansible -y
 
-curl "${embedding_model_par}" -o /home/opc/mall_MiniLM_L12_v2.onnx
-chown -R opc:opc /home/opc/mall_MiniLM_L12_v2.onnx
+curl "${embedding_model_par}" -o /home/opc/all_MiniLM_L12_v2.onnx
+chown -R opc:opc /home/opc/all_MiniLM_L12_v2.onnx
 
 curl "${hotels_dataset_par}" -o /home/opc/hotels.zip
 chown -R opc:opc /home/opc/hotels.zip
+
+# Get ansible_backend
+curl "${ansible_backend_par_full_path}" -o /home/opc/ansible_backend.zip
+mkdir -p /home/opc/ansible_backend
+unzip /home/opc/ansible_backend.zip -d /home/opc/ansible_backend && \
+    rm /home/opc/ansible_backend.zip
+chown -R opc:opc /home/opc/ansible_backend
+
+# Get backend_jar
+curl "${backend_jar_par_full_path}" -o /home/opc/backend_jar.zip
+
+# Extract backend_jar
+mkdir -p /home/opc/backend
+unzip /home/opc/backend_jar.zip -d /home/opc/backend && \
+    rm /home/opc/backend_jar.zip
+chown -R opc:opc /home/opc/backend
+# cp /home/opc/all_MiniLM_L12_v2.onnx /home/opc/ansible_backend/java/files/
+cp -r /home/opc/backend/* /home/opc/ansible_backend/java/files/
+
+# Get ansible_web
+curl "${ansible_web_par_full_path}" -o /home/opc/ansible_web.zip
+mkdir -p /home/opc/ansible_web
+unzip /home/opc/ansible_web.zip -d /home/opc/ansible_web && \
+    rm /home/opc/ansible_web.zip
+chown -R opc:opc /home/opc/ansible_web
+
+# Get web
+curl "${web_par_full_path}" -o /home/opc/web.zip
+chown -R opc:opc /home/opc/web.zip
+
+# Get it ready for ansible; web
+mkdir /home/opc/ansible_web/app/files/
+cp /home/opc/web.zip /home/opc/ansible_web/app/files/
+chown -R opc:opc /home/opc/ansible_web
 
 # Get ansible_compute
 curl "${ansible_compute_par_full_path}" -o /home/opc/ansible_compute.zip
@@ -46,13 +80,17 @@ cat <<EOT >> /home/opc/ansible_params.json
   "db_pdb_password": "${db_pdb_password}",
   "db_pdb_url": "${db_pdb_url}",
   "db_home_location": "${db_home_location}",
+  "backend_private_ip": "${backend_private_ip}",
+  "web_private_ip": "${web_private_ip}",
   "embedding_model_par": "${embedding_model_par}",
   "os_credential_user": "${os_credential_user}",
   "os_credential_token": "${os_credential_token}",
   "os_namespace": "${os_namespace}",
   "region_name": "${region_name}",
   "bucket_name": "${bucket_name}",
-  "certificates_tar_path": "/home/opc/dbc_certs.tar"
+  "certificates_tar_path": "/home/opc/dbc_certs.tar",
+  "backend_dest_directory": "/home/opc/backend",
+  "backend_jar_file": "vector-0.0.1.jar"
 }
 EOT
 chown opc:opc /home/opc/ansible_params.jsonh
@@ -65,6 +103,28 @@ localhost ansible_connection=local ansible_user=root
 ansible_python_interpreter="/usr/bin/python3"
 EOT
 chown opc:opc /home/opc/server.ini
+
+cat <<EOT >> /home/opc/backend.ini
+[backend]
+backend ansible_host=${backend_private_ip}
+
+[backend:vars]
+ansible_python_interpreter="/usr/bin/python3"
+ansible_user=opc
+ansible_private_key_file=/home/opc/private.key
+EOT
+chown opc:opc /home/opc/backend.ini
+
+cat <<EOT >> /home/opc/web.ini
+[web]
+web ansible_host=${web_private_ip}
+
+[web:vars]
+ansible_python_interpreter="/usr/bin/python3"
+ansible_user=opc
+ansible_private_key_file=/home/opc/private.key
+EOT
+chown opc:opc /home/opc/web.ini
 
 cat <<EOT >> /home/opc/db.ini
 [db]
@@ -93,5 +153,19 @@ ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" ansible-playbook \
     -i /home/opc/server.ini \
     --extra-vars "@/home/opc/ansible_params.json" \
     /home/opc/ansible_compute/server.yaml | tee -a /home/opc/ansible-playbook.log
+
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" \
+    ANSIBLE_HOST_KEY_CHECKING=False \
+    ansible-playbook \
+        -i /home/opc/backend.ini \
+        --extra-vars "@/home/opc/ansible_params.json" \
+        /home/opc/ansible_backend/server.yaml | tee -a /home/opc/ansible-playbook.log
+
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" \
+    ANSIBLE_HOST_KEY_CHECKING=False \
+    ansible-playbook \
+        -i /home/opc/web.ini \
+        --extra-vars "@/home/opc/ansible_params.json" \
+        /home/opc/ansible_web/server.yaml | tee -a /home/opc/ansible-playbook.log
 
 rm /home/opc/bootstrap.lock

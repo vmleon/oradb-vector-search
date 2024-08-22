@@ -12,7 +12,7 @@ import {
   getEFlexShapes,
   listAvailabilityDomains,
 } from "./lib/oci.mjs";
-import { createSSHKeyPair } from "./lib/crypto.mjs";
+import { createSelfSignedCert, createSSHKeyPair } from "./lib/crypto.mjs";
 import {
   listDataScienceSessionShapes,
   listDataScienceSessionShapesFamilies,
@@ -54,6 +54,7 @@ await selectComputeShape();
 // await selectNotebookSize();
 
 await createSSHKeys(projectName);
+await createCerts();
 
 await downloadDataset();
 
@@ -326,4 +327,12 @@ async function downloadDataset() {
     );
     console.log(`Dataset downloaded: ${chalk.green(outputFilePath)}`);
   }
+}
+
+async function createCerts() {
+  const certPath = path.join(__dirname, "..", ".certs");
+  await $`mkdir -p ${certPath}`;
+  await createSelfSignedCert(certPath);
+  config.set("certFullchain", path.join(certPath, "tls.crt"));
+  config.set("certPrivateKey", path.join(certPath, "tls.key"));
 }

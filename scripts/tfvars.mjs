@@ -19,6 +19,8 @@ async function generateTFVars() {
   const profile = config.get("profile");
   const compartmentId = config.get("compartmentId");
   const compartmentName = config.get("compartmentName");
+  const certFullchain = config.get("certFullchain");
+  const certPrivateKey = config.get("certPrivateKey");
   const publicKeyContent = config.get("publicKeyContent");
   const sshPrivateKeyPath = config.get("privateKeyPath");
   const dbShape = config.get("base_db_shape");
@@ -38,6 +40,8 @@ async function generateTFVars() {
     tenancy_id: tenancyId,
     region_name: regionName,
     compartment_id: compartmentId,
+    cert_fullchain: certFullchain,
+    cert_private_key: certPrivateKey,
     ssh_public_key: publicKeyContent,
     ssh_private_key_path: sshPrivateKeyPath,
     config_file_profile: profile,

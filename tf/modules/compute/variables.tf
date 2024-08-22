@@ -52,6 +52,14 @@ variable "bucket_name" {
   type = string
 }
 
+variable "backend_private_ip" {
+  type = string
+}
+
+variable "web_private_ip" {
+  type = string
+}
+
 variable "db_home_location" {
   type = string
 }
@@ -94,6 +102,22 @@ variable "ansible_compute_artifact_par_full_path" {
   type = string
 }
 
+variable "ansible_backend_artifact_par_full_path" {
+  type = string
+}
+
+variable "backend_jar_par_full_path" {
+  type = string
+}
+
 variable "ansible_db_artifact_par_full_path" {
+  type = string
+}
+
+variable "web_par_full_path" {
+  type = string
+}
+
+variable "ansible_web_artifact_par_full_path" {
   type = string
 }

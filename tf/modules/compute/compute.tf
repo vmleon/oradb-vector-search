@@ -9,6 +9,8 @@ locals {
     private_key_content           = file(var.ssh_private_key_path)
     db_pdb_password               = var.db_pdb_password
     db_home_location              = var.db_home_location
+    backend_private_ip            = var.backend_private_ip
+    web_private_ip                = var.web_private_ip
     embedding_model_par           = var.embedding_model_par
     hotels_dataset_par            = var.hotels_dataset_par
     os_credential_user            = var.os_credential_user
@@ -17,7 +19,11 @@ locals {
     bucket_name                   = var.bucket_name
     os_credential_token           = var.os_credential_token
     ansible_compute_par_full_path = var.ansible_compute_artifact_par_full_path
+    backend_jar_par_full_path     = var.backend_jar_par_full_path
+    ansible_backend_par_full_path = var.ansible_backend_artifact_par_full_path
     ansible_db_par_full_path      = var.ansible_db_artifact_par_full_path
+    web_par_full_path             = var.web_par_full_path
+    ansible_web_par_full_path     = var.ansible_web_artifact_par_full_path
   })
 }
 
@@ -73,5 +79,5 @@ resource "oci_core_instance" "instance" {
 
 resource "time_sleep" "wait_for_instance" {
   depends_on      = [oci_core_instance.instance]
-  create_duration = "2m"
+  create_duration = "3m"
 }

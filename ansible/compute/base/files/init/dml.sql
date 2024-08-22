@@ -35,225 +35,224 @@ INSERT INTO HOTELS(
 (
     5,
     'Canopy by Hilton Madrid Castellana',
-    'Si te alojas en Canopy by Hilton Madrid Castellana, disfrutarás de una buena ubicación, a solo diez minutos a pie de Paseo de la Castellana y Estadio Santiago Bernabéu. La piscina de temporada es ideal para darse un chapuzón antes de pasar por Planta Z, uno de los 2 restaurantes disponibles, que se especializa en cocina española y sirve almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen un bar o lounge, un gimnasio y un bar-cafetería. Otros viajeros hablan maravillas de la amabilidad del personal y su buen estado general. El transporte público se encuentra a muy poca distancia: Estación de Santiago Bernabéu está a 5 min y Estación de metro Estrecho, a 12 min.',
+    'With a stay at Canopy by Hilton Madrid Castellana, you will be well-located, just a 10-minute walk from Paseo de la Castellana and Santiago Bernabéu Stadium. The seasonal pool is ideal for a dip before stopping by Planta Z, one of the 2 restaurants available, which specializes in Spanish cuisine and serves lunch and dinner. Other highlights of this elegant hotel include a bar/lounge, a gym and a café-bar. Other travelers rave about the friendliness of the staff and its general good condition. Public transport is within walking distance: Santiago Bernabéu Station is 5 minutes away and Estrecho Metro Station is 12 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     6,
     'AC Hotel Atocha by Marriott',
-    'AC Hotel Atocha by Marriott te sitúa a solo cinco minutos en coche de Museo del Prado y Parque de El Retiro. Después de ponerte en forma en el gimnasio abierto las 24 horas, recupera energías en el restaurante, o descansa mientras tomas un refresco en el bar o lounge. Otros aspectos destacados de este hotel elegante incluyen un bar-cafetería, una terraza y un jardín. La amabilidad del personal y la ubicación marcan la diferencia entre los viajeros. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro Palos de la Frontera está a 5 min y Estación de metro Atocha-Renfe, a 8 min.',
+    'AC Hotel Atocha by Marriott puts you just a 5-minute drive from Prado Museum and El Retiro Park. After getting in shape at the 24-hour fitness center, recharge your batteries at the restaurant, or relax with a refreshment at the bar or lounge. Other highlights of this elegant hotel include a café-bar, a terrace and a garden. The friendliness of the staff and the location make the difference among travelers. This accommodation is located very close to public transport: Palos de la Frontera metro station is 5 minutes away and Atocha-Renfe metro station is 8 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     7,
     'Casa de Las Artes, member of Meliá Collection',
-    'Si te alojas en Casa de Las Artes, member of Meliá Collection, disfrutarás de una buena ubicación, a solo diez minutos a pie de Museo del Prado y Puerta del Sol. Podrás darte un chapuzón en la piscina cubierta, pasar por el restaurante a comer algo, o relajarte con una bebida en el bar o lounge. Este hotel elegante se encuentra a solo diez minutos a pie de Museo Nacional Centro de Arte Reina Sofía y Plaza de Santa Ana. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro Antón Martín está a 2 min y Estación de metro Lavapiés, a 6 min.',
+    'Staying at Casa de Las Artes, member of Meliá Collection, you will be well located, just a 10-minute walk from the Prado Museum and Puerta del Sol. You can take a dip in the indoor pool, stop by the restaurant for a meal something, or relax with a drink at the bar or lounge. This elegant hotel is just a 10-minute walk from Museo Nacional Centro de Arte Reina Sofía and Plaza de Santa Ana. This accommodation is within walking distance of public transportation: Antón Martín Metro Station is 2 minutes away and Metro Station Lavapiés, 6 min.',
     'Madrid',
     'Spain'
 ),
 (
     8,
     'Petit Palace President Castellana',
-    'Petit Palace President Castellana te sitúa en una excelente ubicación, a quince minutos a pie de Paseo de la Castellana y Embajada de los Estados Unidos. Para saciar tu apetito puedes degustar las especialidades de cocina mediterránea de Numerus Clausus II, que sirve almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen un bar o lounge y bicicletas de alquiler gratuitas. Otros viajeros hablan maravillas de la amabilidad del personal. El transporte público se encuentra a muy poca distancia: Estación de metro Colón está a 7 min y Estación de metro Rubén Darío, a 8 min.
-',
+    'Petit Palace President Castellana puts you in an excellent location, a fifteen-minute walk from Paseo de la Castellana and the United States Embassy. To satisfy your appetite you can taste the Mediterranean cuisine specialties at Numerus Clausus II, which serves lunch and dinner. Other highlights of this stylish hotel include a bar/lounge and free rental bikes. Other travelers rave about the friendliness of the staff. Public transportation is within walking distance: Colón metro station is 7 minutes away and Rubén Darío metro station is 8 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     9,
     'NH Madrid Príncipe de Vergara',
-    'NH Madrid Príncipe de Vergara goza de una ubicación excelente, a quince minutos a pie de Paseo de la Castellana y Embajada de los Estados Unidos. Tienes un gimnasio para ponerte en forma antes de comer algo en PrÃ­ncipe de Vegara, que se especializa en cocina internacional y sirve almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen un bar o lounge y un bar-cafetería. A otros viajeros les encanta la amabilidad del personal. El transporte público se encuentra a muy poca distancia: Estación de metro Avenida de América está a 4 min y Estación de metro Diego de León, a 6 min.',
+    'NH Madrid Príncipe de Vergara has an excellent location, a fifteen-minute walk from Paseo de la Castellana and the United States Embassy. You have a gym to get in shape before grabbing a bite to eat at Principe de Vegara, which specializes in international cuisine and serves lunch and dinner. Other highlights of this elegant hotel include a bar/lounge and a café-bar. Other travelers love the friendliness of the staff. Public transportation is within walking distance: Avenida de América metro station is 4 minutes away and Diego de León metro station is 6 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     10,
     'Hotel Riu Plaza España',
-    'Hotel Riu Plaza España te sitúa en una excelente ubicación, a solo diez minutos a pie de Gran Vía y Palacio Real de Madrid. Podrás darte un chapuzón en la piscina de temporada, pasar por el restaurante a comer algo, o relajarte con una bebida en uno de los 2 bares con salón. Otros aspectos destacados de este hotel elegante incluyen un gimnasio, un bar-cafetería y una terraza. Otros viajeros destacan la ubicación céntrica en lo que respecta a la proximidad de numerosos atractivos turísticos y su cercanía al transporte público: tendrás Estación de Plaza de España a muy poca distancia y Estación de metro Ventura Rodríguez, a 5 min.',
+    'Hotel Riu Plaza España puts you in an excellent location, just a ten-minute walk from Gran Vía and Royal Palace of Madrid. You can take a dip in the seasonal pool, stop by the restaurant for a bite to eat, or relax with a drink at one of the 2 bars and lounges. Other highlights of this elegant hotel include a gym, a café-bar and a terrace. Other travelers highlight the central location in terms of the proximity of numerous tourist attractions and its proximity to public transport: you will have Plaza de España Station within walking distance and Ventura Rodríguez Metro Station, 5 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     11,
     'Melia Castilla',
-    'Si te alojas en Melia Castilla, disfrutarás de una buena ubicación, a solo diez minutos a pie de Paseo de la Castellana y Plaza de Castilla. Tras una sesión de masajes con piedras calientes, envolturas corporales o tratamientos faciales en el spa, recupera fuerzas en LAlbufera, uno de los 3 restaurantes disponibles, que se especializa en cocina española y sirve almuerzos y cenas. Un bar o lounge, un gimnasio abierto las 24 horas y una piscina de temporada son otras de las instalaciones destacadas en este hotel de lujo. Otros viajeros hablan maravillas de la amabilidad del personal. El transporte público se encuentra a muy poca distancia: Estación de metro Cuzco está a 6 min y Estación de metro Valdeacederas, a 7 min.',
+    'Staying at Melia Castilla puts you in a convenient location, just a 10-minute walk from Paseo de la Castellana and Plaza de Castilla. After a session of hot stone massages, body wraps or facials at the spa, recharge your batteries at LAlbfera, one of 3 restaurants available, specializing in Spanish cuisine and serving lunch and dinner. A bar/lounge, a 24-hour gym and a seasonal pool are other notable facilities at this luxury hotel. Other travelers rave about the friendliness of the staff. Public transportation is within walking distance: Cuzco metro station is 6 minutes away and Valdeacederas metro station is 7 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     12,
     'Senator Barajas',
-    'Senator Barajas se encuentra a solo 3,3 km del aeropuerto y ofrece servicio gratuito de transporte al aeropuerto previa petición. La piscina de temporada es ideal para darse un chapuzón antes de pasar por El Pato Mudo, que se especializa en cocina española y sirve almuerzos y cenas. Otras comodidades incluyen un bar o lounge, un gimnasio abierto las 24 horas y un bar-cafetería. A otros viajeros les encantan la amabilidad del personal y la proximidad del aeropuerto. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro Alameda de Osuna está a 8 min.',
+    'Senator Barajas is located just 3.3 km from the airport and offers free airport shuttle service upon request. The seasonal pool is ideal for a dip before stopping by El Pato Mudo, which specializes in Spanish cuisine and serves lunch and dinner. Other amenities include a bar/lounge, a 24-hour gym, and a coffee bar. Other travelers love the friendly staff and proximity to the airport. This accommodation is located very close to public transport: Alameda de Osuna metro station is 8 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     13,
     'AC Hotel Coslada Aeropuerto by Marriott',
-    'En AC Hotel Coslada Aeropuerto by Marriott, estarás a diez minutos en coche de IFEMA y Estadio Cívitas Metropolitano. Al terminar una sesión de ejercicio en el centro de bienestar, podrás comer algo en el restaurante o descansar con una bebida en el bar o lounge. Otros aspectos destacados de este hotel elegante incluyen un servicio gratuito de transporte desde/hasta el aeropuerto y un bar-cafetería. A otros viajeros les encanta la amabilidad del personal.',
+    'At AC Hotel Coslada Aeropuerto by Marriott, you will be within a 10-minute drive of IFEMA and Cívitas Metropolitano Stadium. After a workout at the wellness center, you can grab a bite to eat at the restaurant or relax with a drink at the bar or lounge. Other highlights of this elegant hotel include a free airport shuttle and a café-bar. Other travelers love the friendliness of the staff.',
     'Madrid',
     'Spain'
 ),
 (
     14,
     'ICON Embassy',
-    'Si te alojas en ICON Embassy, disfrutarás de una buena ubicación, a solo diez minutos a pie de Paseo de la Castellana y Puerta de Alcalá. Para saciar tu apetito puedes acercarte a Flora Fina, que sirve almuerzos y cenas. Este hotel elegante dispone también de un bar o lounge, un bar-cafetería y bicicletas de alquiler gratuitas. A otros viajeros les encantan la amabilidad del personal y la ubicación. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro Serrano está a 4 min y Estación de metro Colón, a 6 min.',
+    'With a stay at ICON Embassy, ​​you will be well-located, just a 10-minute walk from Paseo de la Castellana and Puerta de Alcalá. To satisfy your appetite you can visit Flora Fina, which serves lunch and dinner. This stylish hotel also features a bar/lounge, a café-bar, and free rental bikes. Other travelers love the friendliness of the staff and the location. This accommodation is located very close to public transport: Serrano metro station is 4 minutes away and Colón metro station is 6 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     15,
     'Novotel Madrid Center',
-    'Si te alojas en Novotel Madrid Center, estarás a solo cinco minutos en coche de WiZink Center y Gran Vía. Refréscate con un baño en la piscina de temporada y prueba las delicias de Eat Bar, que sirve desayunos, almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen 2 bares con salón, un bar junto a la piscina y un gimnasio abierto las 24 horas. Otros viajeros destacan su cercanía al transporte público: tendrás Estación de metro ODonnell a 6 min y Estación de metro Goya, a 9 min.',
+    'With a stay at Novotel Madrid Center, you will be just a five-minute drive from WiZink Center and Gran Vía. Cool off with a dip in the seasonal pool and sample the delights of Eat Bar, which serves breakfast, lunch and dinner. Other highlights of this stylish hotel include 2 bars and lounges, a poolside bar, and a 24-hour gym. Other travelers highlight its proximity to public transportation: ODonnell Metro Station is 6 minutes away and Goya Metro Station is 9 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     16,
     'Hotel Eurostars Monte Real',
-    'Si te alojas en Hotel Eurostars Monte Real, estarás a diez minutos en coche de Estadio Santiago Bernabéu y Gran Vía. Tienes el gimnasio abierto las 24 horas para ponerte en forma antes de comer algo en Hotel Monte Real, que se especializa en cocina española y sirve desayunos, almuerzos y cenas. Un bar o lounge, un bar-cafetería y una terraza son otras de las instalaciones destacadas en este hotel elegante.',
+    'With a stay at Hotel Eurostars Monte Real, you will be within a 10-minute drive of Santiago Bernabéu Stadium and Gran Vía. There is a 24-hour gym to get in shape before grabbing a bite to eat at Hotel Monte Real, which specializes in Spanish cuisine and serves breakfast, lunch and dinner. A bar/lounge, a bar-café and a terrace are other notable facilities at this elegant hotel.',
     'Madrid',
     'Spain'
 ),
 (
     17,
     'Olivia Plaza Hotel',
-    'Olivia Plaza Hotel goza de una ubicación fabulosa, a solo cinco minutos a pie de La Rambla y Plaza de Catalunya. Tras una sesión de masajes, prueba los platos de cocina mediterránea de Nineteen Restaurant, que sirve desayunos, almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen un bar o lounge, un bar-cafetería y una terraza. A otros viajeros les encantan la amabilidad del personal y su desayuno. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de cercanías Plaça Catalunya está a pocos pasos y Estación de metro Urquinaona, a 5 min.',
+    'Olivia Plaza Hotel has a fabulous location, just a five-minute walk from La Rambla and Plaza de Catalunya. After a massage session, try Mediterranean cuisine at Nineteen Restaurant, which serves breakfast, lunch and dinner. Other highlights of this elegant hotel include a bar/lounge, a café-bar and a terrace. Other travelers love the friendliness of the staff and their breakfast. This accommodation is located very close to public transport: Plaça Catalunya commuter station is just a few steps away and Urquinaona metro station is 5 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     18,
     'Catalonia Rigoletto Hotel',
-    'Si te alojas en Catalonia Rigoletto Hotel, estarás a solo cinco minutos en coche de Camp Nou y Plaza de Espanya. La piscina al aire libre es ideal para darse un chapuzón antes de pasar por La Traviata, que se especializa en cocina italiana y sirve almuerzos y cenas. Este hotel elegante dispone también de un bar o lounge, un gimnasio y un bar-cafetería. Este alojamiento se encuentra a muy poca distancia del transporte público: Parada de tranvía de Pius XII está a 4 min y Estación de Maria Cristina, a 6 min.',
+    'With a stay at Catalonia Rigoletto Hotel, you will be just a 5-minute drive from Camp Nou and Plaza de Espanya. The outdoor pool is ideal for a dip before stopping by La Traviata, which specializes in Italian cuisine and serves lunch and dinner. This elegant hotel also has a bar/lounge, a gym and a café-bar. This accommodation is located very close to public transport: Pius XII tram stop is 4 minutes away and Maria Cristina Station is 6 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     19,
     'Hotel Barcelona Princess',
-    'Hotel Barcelona Princess ofrece una terraza en la azotea y te sitúa a cinco minutos a pie de Centro de Convenciones Internacional de Barcelona. Concédete una sesión de masajes de tejido profundo antes de tomar algo en uno de los 2 bares junto a la piscina. Otros aspectos destacados de este hotel elegante incluyen 2 piscinas al aire libre, un bar o lounge y una sauna. Otros viajeros destacan su cercanía al transporte público: tendrás Estación de metro El Maresme-Fòrum a 4 min y Estación de metro Besòs Mar, a 7 min.',
+    'Hotel Barcelona Princess offers a rooftop terrace and puts you within a 5-minute walk of Barcelona International Convention Center. Pamper yourself with a deep tissue massage before grabbing a drink at one of the 2 poolside bars. Other highlights of this elegant hotel include 2 outdoor swimming pools, a bar/lounge and a sauna. Other travelers highlight its proximity to public transport: you will have El Maresme-Fòrum metro station 4 minutes away and Besòs Mar metro station 7 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     20,
     'Vincci Maritimo',
-    'Vincci Maritimo te sitúa a diez minutos en coche de Sagrada Familia y Plaza de Catalunya. Cuando te entre hambre, pásate por la cafetería, y al terminar el día, podrás ir a tomar una bebida en el bar o lounge. Otros aspectos destacados de este hotel elegante incluyen un bar-cafetería, una terraza y un jardín. Otros viajeros destacan su cercanía al transporte público: tendrás Estación de metro Selva de Mar a 3 min y Estación de metro El Maresme-Fòrum, a 7 min.',
+    'Vincci Maritimo puts you a ten-minute drive from Sagrada Familia and Plaza de Catalunya. When you get hungry, stop by the cafeteria, and at the end of the day, you can go have a drink at the bar or lounge. Other highlights of this elegant hotel include a café-bar, a terrace and a garden. Other travelers highlight its proximity to public transport: you will have Selva de Mar metro station 3 minutes away and El Maresme-Fòrum metro station 7 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     21,
     'Barceló Sants',
-    'Barceló Sants te sitúa a solo cinco minutos en coche de Paseo de Gracia y Plaza de Catalunya. Tienes el gimnasio abierto las 24 horas para ponerte en forma, antes de probar las especialidades de cocina mediterránea de Oxygen, uno de los 2 restaurantes disponibles. Este hotel elegante se encuentra a solo cinco minutos en coche de La Rambla y Plaza de Espanya. Otros viajeros destacan su cercanía al transporte público: tendrás Estación de metro Sants-Estació a 2 min y Estación de metro Tarragona, a 7 min.',
+    'Barceló Sants puts you just a five-minute drive from Paseo de Gracia and Plaza de Catalunya. You have the 24-hour gym to get in shape, before trying the Mediterranean cuisine specialties at Oxygen, one of the 2 restaurants available. This elegant hotel is just a five-minute drive from La Rambla and Plaza de Espanya. Other travelers highlight its proximity to public transport: you will have Sants-Estació Metro Station 2 minutes away and Tarragona Metro Station 7 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     22,
     'Via Sants Hotel Barcelona, Tapestry Collection by Hilton',
-    'En Via Sants Hotel Barcelona, Tapestry Collection by Hilton, estarás a solo cinco minutos en coche de Paseo de Gracia y Camp Nou. Cuando te entre hambre, pásate por la cafetería, y al terminar el día, podrás ir a tomar una bebida en el bar o lounge. Este hotel elegante se encuentra a solo cinco minutos en coche de Plaza de Espanya y Casa Milà. Otros viajeros hablan maravillas de la amabilidad del personal. El transporte público se encuentra a muy poca distancia: Estación de metro Sants-Estació está a 3 min y Estación de metro Entença, a 6 min',
+    'At Via Sants Hotel Barcelona, ​​Tapestry Collection by Hilton, you will be just a five-minute drive from Paseo de Gracia and Camp Nou. When you get hungry, stop by the cafeteria, and at the end of the day, you can go have a drink at the bar or lounge. This elegant hotel is just a five-minute drive from Plaza de Espanya and Casa Milà. Other travelers rave about the friendliness of the staff. Public transport is within walking distance: Sants-Estació metro station is 3 minutes away and Entença metro station is 6 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     23,
     'Vincci Bit',
-    'Vincci Bit ofrece una terraza en la azotea y te sitúa a quince minutos a pie de Centro de Convenciones Internacional de Barcelona. Después de ponerte en forma en el gimnasio, recupera energías en la cafetería, o descansa mientras tomas un refresco en el bar o lounge. Otros aspectos destacados de este hotel elegante incluyen un bar junto a la piscina, una sauna y un baño turco. A otros viajeros les encanta la amabilidad del personal. El transporte público se encuentra a muy poca distancia: Estación de metro El Maresme-Fòrum está a 6 min y Estación de metro Selva de Mar, a 7 min.',
+    'Vincci Bit offers a rooftop terrace and puts you within a 15-minute walk of Barcelona International Convention Center. After getting in shape at the gym, recharge your batteries at the café, or rest with a refreshment at the bar or lounge. Other highlights of this elegant hotel include a poolside bar, a sauna and a Turkish bath. Other travelers love the friendliness of the staff. Public transport is within walking distance: El Maresme-Fòrum metro station is 6 minutes away and Selva de Mar metro station is 7 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     24,
     'Hotel Barcelona Condal Mar Affiliated by Meliá',
-    'Hotel Barcelona Condal Mar Affiliated by Meliá ofrece una terraza en la azotea y te sitúa a quince minutos a pie de Centro de Convenciones Internacional de Barcelona. Después de ponerte en forma en el gimnasio abierto las 24 horas, recupera energías en la cafetería, o descansa mientras tomas un refresco en el bar o lounge. Un bar junto a la piscina, una sauna y un baño turco son otras de las instalaciones destacadas en este hotel elegante. Otros viajeros hablan maravillas de la amabilidad del personal. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro Selva de Mar está a 7 min y Parada de tranvía de Sant Martí de Provençals, a 9 min.',
+    'Hotel Barcelona Condal Mar Affiliated by Meliá offers a rooftop terrace and puts you within a 15-minute walk of Barcelona International Convention Center. After getting in shape at the 24-hour fitness center, recharge your batteries at the café, or relax with a refreshment at the bar or lounge. A poolside bar, a sauna and a Turkish bath are other notable facilities at this elegant hotel. Other travelers rave about the friendliness of the staff. This accommodation is located very close to public transport: Selva de Mar metro station is 7 minutes away and Sant Martí de Provençals tram stop is 9 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     25,
     'Hilton Diagonal Mar Barcelona',
-    'Si te alojas en Hilton Diagonal Mar Barcelona, estarás a diez minutos en coche de Catedral de Barcelona y Sagrada Familia. La piscina de temporada es ideal para darse un chapuzón antes de pasar por AÜRT, uno de los 3 restaurantes disponibles, que se especializa en cocina mediterránea y sirve almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen 2 bares con salón, un bar junto a la piscina y un gimnasio abierto las 24 horas. A otros viajeros les encantan la amabilidad del personal y la zona comercial de los alrededores. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro El Maresme-Fòrum está a 7 min y Estación de metro Selva de Mar, a 10 min.',
+    'With a stay at Hilton Diagonal Mar Barcelona, ​​you will be within a 10-minute drive of Barcelona Cathedral and Sagrada Familia. The seasonal pool is ideal for a dip before stopping by AÜRT, one of the 3 restaurants available, which specializes in Mediterranean cuisine and serves lunch and dinner. Other highlights of this stylish hotel include 2 bars and lounges, a poolside bar, and a 24-hour gym. Other travelers love the friendly staff and the surrounding shopping area. This accommodation is located very close to public transport: El Maresme-Fòrum metro station is 7 minutes away and Selva de Mar metro station is 10 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     26,
     'NH Collection Barcelona Constanza',
-    'NH Collection Barcelona Constanza te sitúa a solo cinco minutos en coche de Camp Nou y Paseo de Gracia. En el restaurante podrás reponer energías para acercarte a pasarlo en grande en la piscina al aire libre. Después, nada como una bebida en el bar o lounge. Este hotel elegante dispone también de un bar junto a la piscina, un gimnasio y una sauna. Otros viajeros hablan maravillas de la amabilidad del personal y la ubicación. Este alojamiento se encuentra a muy poca distancia del transporte público: Parada de tranvía de LIlla está a 3 min y Parada de tranvía de Numància, a 6 min.',
+    'NH Collection Barcelona Constanza puts you just a five-minute drive from Camp Nou and Paseo de Gracia. In the restaurant you can recharge your batteries to have a great time in the outdoor pool. Afterwards, nothing like a drink at the bar or lounge. This elegant hotel also has a poolside bar, a gym and a sauna. Other travelers rave about the friendliness of the staff and the location. This accommodation is located very close to public transport: LIlla tram stop is 3 minutes away and Numància tram stop is 6 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     27,
     'Hotel ILUNION Barcelona',
-    'Hotel ILUNION Barcelona ofrece una terraza en la azotea y te sitúa a solo cinco minutos en coche de Sagrada Familia y Plaza de Catalunya. Refréscate con un baño en la piscina al aire libre y prueba las delicias de El Fogon, que sirve desayunos. Este hotel elegante dispone también de un bar o lounge, un gimnasio y un bar-cafetería. Otros viajeros hablan muy bien de la amabilidad del personal y la posibilidad de desplazarse a pie por la zona. El transporte público se encuentra a muy poca distancia: Estación de metro Llacuna está a 7 min y Estación de metro de Poblenou, a 8 min.',
+    'Hotel ILUNION Barcelona offers a rooftop terrace and puts you just a five-minute drive from Sagrada Familia and Plaza de Catalunya. Cool off with a swim in the outdoor pool and sample the delights of El Fogon, which serves breakfast. This elegant hotel also has a bar/lounge, a gym and a café-bar. Other travelers speak highly of the friendliness of the staff and the ability to get around the area on foot. Public transport is within walking distance: Llacuna metro station is 7 minutes away and Poblenou metro station is 8 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     28,
     'limehome Barcelona',
-    'En limehome Barcelona, estarás a solo cinco minutos en coche de Sagrada Familia y Paseo de Gracia. Los apartamentos cuentan con televisiones de pantalla plana, máquinas de café espresso y wifi gratis. El transporte público se encuentra a muy poca distancia: Estación de metro Navas está a 4 min y Estación de metro Camp de lArpa, a 6 min.',
+    'At limehome Barcelona, ​​you will be just a five-minute drive from Sagrada Familia and Paseo de Gracia. Apartments feature flat-screen TVs, espresso machines, and free WiFi. Public transport is within walking distance: Navas metro station is 4 minutes away and Camp de lArpa metro station is 6 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     29,
     'Melia Barcelona Sky',
-    'En Melia Barcelona Sky, estarás a solo cinco minutos en coche de Sagrada Familia y Plaza de Catalunya. Visita el spa para regalarte masajes de tejido profundo, envolturas corporales o tratamientos faciales, y prueba los platos de Restaurante Merkado, que se especializa en cocina mediterránea y sirve desayunos, almuerzos y cenas. Otros aspectos destacados de este hotel de lujo incluyen 3 bares con salón, un bar junto a la piscina y un gimnasio abierto las 24 horas. Otros viajeros hablan maravillas de la amabilidad del personal. El transporte público se encuentra a muy poca distancia: Parada de tranvía de Pere IV está a 3 min y Parada de tranvía de Fluvià, a 5 min.',
+    'At Melia Barcelona Sky, you will be just a five-minute drive from Sagrada Familia and Plaza de Catalunya. Visit the spa for deep-tissue massages, body wraps, or facials, and try dishes at Restaurante Merkado, which specializes in Mediterranean cuisine and serves breakfast, lunch, and dinner. Other highlights of this luxury hotel include 3 bars and lounges, a poolside bar, and a 24-hour gym. Other travelers rave about the friendliness of the staff. Public transport is within walking distance: Pere IV tram stop is 3 minutes away and Fluvià tram stop is 5 minutes away.',
     'Barcelona',
     'Spain'
 ),
 (
     30,
     'Barcelona Airport Hotel',
-    'Barcelona Airport Hotel se encuentra a solo 3,5 km del aeropuerto y ofrece servicio gratuito de transporte al aeropuerto disponible 24 horas. Refréscate con un baño en la piscina de temporada y prueba las delicias de La Sal Marina, uno de los 2 restaurantes del alojamiento, que sirve desayunos, almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen un bar o lounge, un gimnasio y un bar-cafetería. A otros viajeros les encantan su piscina y la amabilidad del personal. Este alojamiento se encuentra a muy poca distancia del transporte público: Mas Blau Station está a 12 min.',
+    'Barcelona Airport Hotel is located just 3.5 km from the airport and offers a free 24-hour airport shuttle. Cool off with a dip in the seasonal pool and sample the delights of La Sal Marina, one of the propertys 2 restaurants, serving breakfast, lunch and dinner. Other highlights of this elegant hotel include a bar/lounge, a gym and a café-bar. Other travelers love the pool and friendly staff. This accommodation is located very close to public transport: Mas Blau Station is 12 min.',
     'Barcelona',
     'Spain'
 ),
 (
     31,
     'INNSiDE by Meliá Barcelona Aeropuerto',
-    'A solo 3,9 km del aeropuerto, INNSiDE by Meliá Barcelona Aeropuerto ofrece servicio gratuito de transporte al aeropuerto en un horario preestablecido. Tienes un gimnasio para ponerte en forma antes de comer algo en Mediterraneo, que sirve almuerzos y cenas. Este hotel elegante dispone también de un bar o lounge, un bar-cafetería y una terraza. A otros viajeros les gustan la amabilidad del personal y su buen estado general. Este alojamiento se encuentra a muy poca distancia del transporte público: Mas Blau Station está a 8 min.',
+    'Just 3.9 km from the airport, INNSiDE by Meliá Barcelona Aeropuerto offers free airport shuttle service at a pre-arranged time. You have a gym to get in shape before grabbing a bite to eat at Mediterraneo, which serves lunch and dinner. This elegant hotel also has a bar/lounge, a café-bar and a terrace. Other travelers like the friendliness of the staff and its general good condition. This accommodation is located very close to public transport: Mas Blau Station is 8 min.',
     'Barcelona',
     'Spain'
 ),
 (
     32,
     'Hotel Marina Badalona',
-    'Con una terraza en la azotea a tu disposición, Hotel Marina Badalona te sitúa a diez minutos en coche de Centro de Convenciones Internacional de Barcelona. El spa incluye masajes y en la cafetería podrás recuperar fuerzas. Un bar o lounge, un gimnasio y una piscina de temporada son otras de las instalaciones destacadas en este hotel elegante. A otros viajeros les encantan su piscina y la amabilidad del personal.',
+    'Featuring a rooftop terrace at your disposal, Hotel Marina Badalona puts you within a 10-minute drive of Barcelona International Convention Center. The spa includes massages and in the cafeteria you can regain your strength. A bar/lounge, a gym and a seasonal pool are other notable facilities at this elegant hotel. Other travelers love the pool and friendly staff.',
     'Barcelona',
     'Spain'
 ),
 (
     33,
     'Aloft Madrid Gran Via',
-    'En Aloft Madrid Gran Via gozarás de una ubicación excelente, a solo cinco minutos a pie de Gran Vía y Teatro Lope de Vega. Además de aprovechar el gimnasio abierto las 24 horas, podrás degustar el desayuno para llevar que se sirve todos los días. Este hotel elegante se encuentra a solo diez minutos a pie de Puerta del Sol y Palacio Real de Madrid. A otros viajeros les encanta la amabilidad del personal. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro Callao está a pocos pasos y Estación de metro Santo Domingo, a 3 min.',
+    'At Aloft Madrid Gran Via you will enjoy an excellent location, just a five-minute walk from Gran Vía and Teatro Lope de Vega. In addition to taking advantage of the 24-hour fitness center, you can enjoy the grab-and-go breakfast served daily. This elegant hotel is just a 10-minute walk from Puerta del Sol and Royal Palace of Madrid. Other travelers love the friendliness of the staff. This accommodation is located very close to public transport: Callao metro station is just a few steps away and Santo Domingo metro station is 3 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     34,
     'Only YOU Boutique Hotel',
-    'Only YOU Boutique Hotel goza de una ubicación excelente, a solo diez minutos a pie de Gran Vía y Paseo de la Castellana. Regálate una sesión de masajes de tejido profundo, envolturas corporales o tratamientos ayurvédicos en el spa y acércate a comer algo al Gastrolounge, que se especializa en cocina europea moderna y sirve desayunos, almuerzos y cenas. Un bar o lounge, un gimnasio y una sauna son otras de las instalaciones destacadas en este hotel elegante. La amabilidad del personal y su buen estado general marcan la diferencia entre los viajeros. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro Chueca está a 2 min y Estación de Banco de España, a 6 min.',
+    'Only YOU Boutique Hotel has an excellent location, just a ten-minute walk from Gran Vía and Paseo de la Castellana. Treat yourself to deep-tissue massages, body wraps, or Ayurvedic treatments at the spa, and grab a bite to eat at Gastrolounge, which specializes in modern European cuisine and serves breakfast, lunch, and dinner. A bar/lounge, a gym and a sauna are other notable facilities at this elegant hotel. The friendliness of the staff and its general good condition make the difference among travelers. This accommodation is located very close to public transport: Chueca metro station is 2 minutes away and Banco de España Station is 6 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     35,
     'Círculo Gran Vía, Autograph Collection - Adults Only',
-    'Círculo Gran Vía, Autograph Collection - Adults Only goza de una ubicación excelente, a solo diez minutos a pie de Gran Vía y Puerta del Sol. Tienes un gimnasio para ponerte en forma antes de comer algo en Círculo Mercantil, que sirve desayunos, almuerzos y cenas. Este hotel elegante se encuentra a solo diez minutos a pie de Plaza de Santa Ana y Teatro Lope de Vega. Este alojamiento se encuentra a muy poca distancia del transporte público: Estación de metro Gran Vía está a pocos pasos y Estación de metro Sevilla, a 4 min',
+    'Círculo Gran Vía, Autograph Collection - Adults Only has a great location, just a ten-minute walk from Gran Vía and Puerta del Sol. You have a gym to get in shape before grabbing a bite to eat at Círculo Mercantil, which serves breakfast, lunch and dinners. This elegant hotel is just a 10-minute walk from Plaza de Santa Ana and Teatro Lope de Vega. This accommodation is located very close to public transport: Gran Vía metro station is just a few steps away and Sevilla metro station is 4 minutes away.',
     'Madrid',
     'Spain'
 ),
 (
     36,
     'Axel Hotel Barcelona Urban Spa - Adults Only',
-    'Axel Hotel Barcelona Urban Spa - Adults Only ofrece una terraza en la azotea y te sitúa a diez minutos a pie de Paseo de Gracia y Casa Batlló. Regálate una sesión de masajes en el spa, y prueba los platos de Nikkei 103, que se especializa en cocina peruana y sirve almuerzos y cenas. Otros aspectos destacados de este hotel elegante incluyen una piscina al aire libre, un bar junto a la piscina y un centro de bienestar. La amabilidad del personal y la ubicación marcan la diferencia entre los viajeros. El transporte público se encuentra a muy poca distancia: Estación de metro Universitat está a 6 min y Estación de metro de Passeig de Gràcia, a 9 min.',
+    'Axel Hotel Barcelona Urban Spa - Adults Only offers a rooftop terrace and puts you within a 10-minute walk of Paseo de Gracia and Casa Batlló. Treat yourself to a massage at the spa, and sample dishes at Nikkei 103, which specializes in Peruvian cuisine and serves lunch and dinner. Other highlights of this elegant hotel include an outdoor pool, a poolside bar and a wellness center. The friendliness of the staff and the location make the difference among travelers. Public transport is within walking distance: Universitat metro station is 6 minutes away and Passeig de Gràcia metro station is 9 minutes away.',
     'Barcelona',
     'Spain'
 );
