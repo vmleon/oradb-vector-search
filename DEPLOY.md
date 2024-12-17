@@ -22,18 +22,56 @@ Install the dependencies for the scripts in [Google ZX](https://google.github.io
 cd scripts/ && npm install && cd ..
 ```
 
-> Download pre-packaged model from Oracle
->
-> [Now Available! Pre-built Embedding Generation model for Oracle Database 23ai](https://blogs.oracle.com/machinelearning/post/use-our-prebuilt-onnx-model-now-available-for-embedding-generation-in-oracle-database-23ai)
->
-> `wget https://adwc4pm.objectstorage.us-ashburn-1.oci.customer-oci.com/p/VBRD9P8ZFWkKvnfhrWxkpPe8K03-JIoM5h_8EJyJcpE80c108fuUjg7R5L5O7mMZ/n/adwc4pm/b/OML-Resources/o/all_MiniLM_L12_v2_augmented.zip`
->
-> `unzip all_MiniLM_L12_v2_augmented.zip -d all_MiniLM_L12_v2_augmented`
+## Build components
+
+Build website
+
+```bash
+cd src/web
+```
+
+```bash
+npm install
+```
+
+```bash
+npm run build
+```
+
+```bash
+cd ../..
+```
+
+Build Backend
+
+```bash
+cd src/vector
+```
+
+```bash
+./gradlew clean bootJar
+```
+
+```bash
+cd ../..
+```
+
+Download pre-packaged model from Oracle
+
+[Now Available! Pre-built Embedding Generation model for Oracle Database 23ai](https://blogs.oracle.com/machinelearning/post/use-our-prebuilt-onnx-model-now-available-for-embedding-generation-in-oracle-database-23ai)
+
+```bash
+wget https://adwc4pm.objectstorage.us-ashburn-1.oci.customer-oci.com/p/VBRD9P8ZFWkKvnfhrWxkpPe8K03-JIoM5h_8EJyJcpE80c108fuUjg7R5L5O7mMZ/n/adwc4pm/b/OML-Resources/o/all_MiniLM_L12_v2_augmented.zip
+```
+
+```bash
+unzip all_MiniLM_L12_v2_augmented.zip -d all_MiniLM_L12_v2_augmented
+```
 
 Answer all the questions from `setenv.mjs` script:
 
 ```bash
-npx zx scripts/setenv.mjs
+zx scripts/setenv.mjs
 ```
 
 ## Deploy with Terraform
@@ -41,7 +79,7 @@ npx zx scripts/setenv.mjs
 Generate the `terraform.tfvars` file:
 
 ```bash
-npx zx scripts/tfvars.mjs
+zx scripts/tfvars.mjs
 ```
 
 Run the commands that `tfvars.mjs` output in yellow one by one.
@@ -57,7 +95,7 @@ cd ../..
 Create the bastion host session
 
 ```bash
-npx zx scripts/bastion-session.mjs
+zx scripts/bastion-session.mjs
 ```
 
 Paste the yellow command to connect with SSH into the compute instance.
@@ -144,5 +182,5 @@ cd ../..
 Clean all auxiliary files:
 
 ```bash
-npx zx scripts/clean.mjs
+zx scripts/clean.mjs
 ```
