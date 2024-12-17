@@ -2,7 +2,7 @@
 
 To deploy this solution go to the [Deployment Steps](DEPLOY.md)
 
-¡[Architecture Diagrama](images/architecture.drawio.png)
+![Architecture Diagrama](images/architecture.drawio.png)
 
 [GoldenGate Data Streaming Tutorial](https://docs.oracle.com/en/learn/oci-gg-to-streaming/index.html#task-4-create-a-new-schema-and-settings-for-sourcedb)
 
