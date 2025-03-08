@@ -1,6 +1,6 @@
 
 ---
-# Set SQLPATH to HOME
+# Setup
 - name: Cat bashrc
   ansible.builtin.command: cat $HOME/.bashrc
   become_user: opc
@@ -9,6 +9,8 @@
   ansible.builtin.shell: echo "export SQLPATH=$HOME" >> $HOME/.bashrc
   become_user: opc
   when: bashrc_content.stdout.find('SQLPATH') == -1
+
+# Install Java and SQLcl
 - name: Install JDK 22 headless
   ansible.builtin.package:
     name: jdk-22-headless
@@ -17,6 +19,8 @@
   ansible.builtin.package:
     name: sqlcl
     update_cache: yes
+
+# SQLcl setup
 - name: Copy login.sql file
   ansible.builtin.copy:
     src: ../files/login.sql
@@ -31,6 +35,8 @@
     owner: opc
     group: opc
     mode: '0640'
+
+# Create directories
 - name: Create conn directory
   ansible.builtin.file:
     path: /home/opc/conn
@@ -38,27 +44,6 @@
     owner: opc
     group: opc
     mode: '0744'
-- name: Copy conn/cdb.sql template
-  ansible.builtin.template:
-    src: ../files/conn/cdb.sql.j2
-    dest: /home/opc/conn/cdb.sql
-    owner: opc
-    group: opc
-    mode: '0640'
-- name: Copy conn/pdb.sql template
-  ansible.builtin.template:
-    src: ../files/conn/pdb.sql.j2
-    dest: /home/opc/conn/pdb.sql
-    owner: opc
-    group: opc
-    mode: '0640'
-- name: Copy conn/hotel.sql template
-  ansible.builtin.template:
-    src: ../files/conn/hotel.sql.j2
-    dest: /home/opc/conn/hotel.sql
-    owner: opc
-    group: opc
-    mode: '0640'
 - name: Create init directory
   ansible.builtin.file:
     path: /home/opc/init
@@ -66,6 +51,15 @@
     owner: opc
     group: opc
     mode: '0744'
+- name: Create queries directory
+  ansible.builtin.file:
+    path: /home/opc/queries
+    state: directory
+    owner: opc
+    group: opc
+    mode: '0744'
+
+# Copy scripts
 - name: Copy init SQL files
   ansible.builtin.copy:
     src: "{{ item }}"
@@ -82,13 +76,6 @@
     owner: opc
     group: opc
     mode: '0640'
-- name: Create queries directory
-  ansible.builtin.file:
-    path: /home/opc/queries
-    state: directory
-    owner: opc
-    group: opc
-    mode: '0744'
 - name: Copy queries SQL files
   ansible.builtin.copy:
     src: "{{ item }}"
@@ -98,19 +85,64 @@
     mode: '0640'
   with_fileglob:
     - ../files/queries/*.sql
-- name: Create CDB connection
-  ansible.builtin.command: "sql /nolog @/home/opc/conn/cdb.sql"
+
+# Connection ADMIN
+- name: Copy conn/admin.sql template
+  ansible.builtin.template:
+    src: ../files/conn/admin.sql.j2
+    dest: /home/opc/conn/admin.sql
+    owner: opc
+    group: opc
+    mode: '0640'
+- name: Create Admin connection
+  ansible.builtin.command: "sql /nolog @/home/opc/conn/admin.sql"
   become_user: opc
-- name: Create PDB connection
-  ansible.builtin.command: "sql /nolog @/home/opc/conn/pdb.sql"
+
+# Create HOTEL user and connection
+- name: Copy init/hotel.sql template
+  ansible.builtin.template:
+    src: ../files/init/hotel.sql.j2
+    dest: /home/opc/init/hotel.sql
+    owner: opc
+    group: opc
+    mode: '0640'
+- name: Init Hotel
+  ansible.builtin.command: "sql -name admin @/home/opc/init/hotel.sql"
   become_user: opc
+- name: Copy conn/hotel.sql template
+  ansible.builtin.template:
+    src: ../files/conn/hotel.sql.j2
+    dest: /home/opc/conn/hotel.sql
+    owner: opc
+    group: opc
+    mode: '0640'
 - name: Create Hotel connection
   ansible.builtin.command: "sql /nolog @/home/opc/conn/hotel.sql"
   become_user: opc
+
+# Create OS Credentials
+- name: Copy init/create_os_credentials.sql template
+  ansible.builtin.template:
+    src: ../files/init/create_os_credentials.sql.j2
+    dest: /home/opc/init/create_os_credentials.sql
+    owner: opc
+    group: opc
+    mode: '0640'
+- name: Create Object Storage Credentials
+  ansible.builtin.command: "sql -name hotel @/home/opc/init/create_os_credentials.sql"
+  become_user: opc
+
+# Import ONNX model
+- name: Copy init/import_onnx.sql template
+  ansible.builtin.template:
+    src: ../files/init/import_onnx.sql.j2
+    dest: /home/opc/init/import_onnx.sql
+    owner: opc
+    group: opc
+    mode: '0640'
 - name: Import ONNX model
   ansible.builtin.command: "sql -name hotel @/home/opc/init/import_onnx.sql"
   become_user: opc
-  register: import_onnx
 - name: Select model
   ansible.builtin.command: "sql -name hotel @/home/opc/init/select_model.sql"
   become_user: opc
@@ -121,6 +153,8 @@
   become_user: opc
   register: model_info
 - debug: msg="{{ model_info.stdout_lines }}"
+
+# DML, triggers and DDL
 - name: Create Hotel tables
   ansible.builtin.command: "sql -name hotel @/home/opc/init/ddl.sql"
   become_user: opc

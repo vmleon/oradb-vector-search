@@ -6,9 +6,9 @@ spring:
   main:
     banner-mode: "off"
   datasource:
-    url: jdbc:oracle:thin:@{{ db_pdb_url }}
+    url: jdbc:oracle:thin:@{{db_name}}_high?TNS_ADMIN=/home/opc/wallet
     username: HOTEL
-    password: "{{ db_pdb_password }}"
+    password: "{{ db_admin_password }}"
     driver-class-name: oracle.jdbc.OracleDriver
     type: oracle.ucp.jdbc.PoolDataSource
     oracleucp:
@@ -25,13 +25,7 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      use-new-id-generator-mappings: false
       ddl-auto: none
   oracle:
     jdbc:
       fanEnabled: false
-logging:
-  level:
-    org:
-      hibernate:
-        sql: DEBUG

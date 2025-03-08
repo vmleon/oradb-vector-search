@@ -1,14 +1,16 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.5'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'dev.victormartin.db.vector'
 version = '0.0.1'
 
 java {
-	sourceCompatibility = '21'
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(23)
+	}
 }
 
 repositories {
@@ -25,9 +27,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.oracle.database.jdbc:ojdbc11:23.5.0.24.07'
-	implementation 'com.oracle.database.jdbc:ucp:23.5.0.24.07'
-	implementation 'com.h2database:h2:2.3.232'
+	implementation 'com.oracle.database.jdbc:ojdbc17-production:23.6.0.24.10'
+	implementation 'com.oracle.database.jdbc:ucp:23.6.0.24.10'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

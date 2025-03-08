@@ -1,14 +1,10 @@
 locals {
   cloud_init_content = templatefile("${path.module}/userdata/bootstrap.tftpl", {
     project_name                  = var.project_name
-    db_url                        = var.db_url
-    db_password                   = var.db_password
-    db_service                    = "${var.project_name}${var.deploy_id}"
-    db_pdb_url                    = var.db_pdb_url
-    db_private_ip                 = var.db_private_ip
+    db_name                       = var.db_name
+    db_admin_password             = var.db_admin_password
+    wallet_par_full_path          = var.wallet_par_full_path
     private_key_content           = file(var.ssh_private_key_path)
-    db_pdb_password               = var.db_pdb_password
-    db_home_location              = var.db_home_location
     backend_private_ip            = var.backend_private_ip
     web_private_ip                = var.web_private_ip
     embedding_model_par           = var.embedding_model_par

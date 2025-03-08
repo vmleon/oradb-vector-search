@@ -1,3 +1,3 @@
-conn -save hotel -url {{db_pdb_url}} -savepwd -u 'HOTEL' -password '{{db_pdb_password}}'
+conn -cloudconfig /home/opc/wallet.zip -replace -save hotel -savepwd -password '{{db_admin_password}}' hotel@{{db_name}}_high
 
 EXIT;

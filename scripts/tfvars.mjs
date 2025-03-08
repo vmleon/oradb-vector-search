@@ -7,7 +7,7 @@ $.verbose = false;
 clear();
 console.log("Create terraform.tfvars...");
 
-const projectName = "vector";
+const projectName = "vect";
 
 const config = new Configstore(projectName, { projectName });
 

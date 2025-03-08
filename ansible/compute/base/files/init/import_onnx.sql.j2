@@ -1,0 +1,18 @@
+begin
+   dbms_vector.drop_onnx_model(
+      model_name => 'doc_model',
+      force      => true
+   );
+   dbms_vector.load_onnx_model_cloud(
+      model_name  => 'doc_model',
+      credential  => 'OCI_OBJECT_STORAGE_VECTOR',
+      uri         => '{{embedding_model_par}}',
+      metadata    =>
+                json(
+                   '{"function" : "embedding", "embeddingOutput" : "embedding" , "input": {"input": ["DATA"]}}'
+                )
+   );
+end;
+/
+
+exit;

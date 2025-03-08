@@ -84,6 +84,12 @@ zx scripts/tfvars.mjs
 
 Run the commands that `tfvars.mjs` output in yellow one by one.
 
+> Alternative: One liner for the yellow commands (for easy copy paste)
+>
+> ```bash
+> cd tf/application && terraform init && terraform apply -auto-approve
+> ```
+
 Come back to the root folder:
 
 ```bash
@@ -120,43 +126,6 @@ To exit the SSH connection with the compute instance:
 
 ```bash
 exit
-```
-
-## Data Science
-
-Open Terminal within OCI Data Science
-
-```bash
-python -m pip install oracledb --upgrade --user
-```
-
-> Oracle Instant Client is installed by default on Data Science.
->
-> One example would be:
-> `/usr/lib/oracle/19.17/client64/lib/`
-
-Create a Jupyter notebook.
-
-To connect with the Oracle Database you will use [OracleDB](https://python-oracledb.readthedocs.io/en/latest/) python library with the `thick` mode.
-
-```python
-import os
-import oracledb
-
-oracledb.init_oracle_client()
-```
-
-```python
-db_url = os.environ["DB_URL"]
-db_password = os.environ["DB_PASSWORD"]
-```
-
-```python
-with oracledb.connect(user="system", password=db_password, dsn=db_url) as connection:
-    with connection.cursor() as cursor:
-        sql = """select sysdate from dual"""
-        for r in cursor.execute(sql):
-            print(r)
 ```
 
 ## Clean up

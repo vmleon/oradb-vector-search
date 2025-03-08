@@ -10,25 +10,15 @@ import {
   getRegions,
   searchCompartmentIdByName,
   getEFlexShapes,
-  listAvailabilityDomains,
 } from "./lib/oci.mjs";
 import { createSelfSignedCert, createSSHKeyPair } from "./lib/crypto.mjs";
-import {
-  listDataScienceSessionShapes,
-  listDataScienceSessionShapesFamilies,
-} from "./lib/oci/datascience.mjs";
-import {
-  listADBExaShapeFamilies,
-  listADBExaVersions,
-  listDBShapes,
-} from "./lib/oci/db.mjs";
 
 $.verbose = false;
 
 clear();
 console.log("Set up environment...");
 
-const projectName = "vector";
+const projectName = "vect";
 
 const config = new Configstore(projectName, { projectName });
 
@@ -44,14 +34,7 @@ await setNamespaceEnv();
 await setCompartmentEnv();
 const compartmentId = config.get("compartmentId");
 
-// await selectADBExaVersions();
-// await selectADBExaShapeFamilies();
-
-await selectBaseDbShape();
-
 await selectComputeShape();
-// await selectDataScienceShape();
-// await selectNotebookSize();
 
 await createSSHKeys(projectName);
 await createCerts();
@@ -134,92 +117,6 @@ async function setCompartmentEnv() {
     });
 }
 
-async function selectADBExaVersions() {
-  const versions = await listADBExaVersions(
-    { region: regionName, profile },
-    compartmentId
-  );
-  await inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "autonomous_exadata_version",
-        message: "Select Autonomous Exadata Version",
-        choices: versions.reverse(),
-      },
-    ])
-    .then((answers) => {
-      config.set(
-        "autonomous_exadata_version",
-        answers.autonomous_exadata_version
-      );
-    });
-}
-
-async function selectADBExaShapeFamilies() {
-  const ads = await listAvailabilityDomains(
-    { region: regionName, profile },
-    compartmentId
-  );
-  const listAutonomousExadataShapes = await listADBExaShapeFamilies(
-    { profile, region: regionName },
-    compartmentId,
-    ads[0].name
-  );
-
-  await inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "autonomous_exadata_shape",
-        message: "Select Autonomous Exadata Shape",
-        choices: listAutonomousExadataShapes,
-      },
-    ])
-    .then((answers) => {
-      config.set("autonomous_exadata_shape", answers.autonomous_exadata_shape);
-    });
-}
-
-async function selectBaseDbShape() {
-  const listShapes = await listDBShapes(
-    { profile, region: regionName },
-    compartmentId,
-    "VIRTUALMACHINE"
-  );
-
-  let choices;
-  const intelShapes = listShapes
-    .filter((s) => s["shape-type"].includes("INTEL"))
-    .map((s) => `${s.shape} (${s["shape-type"]})`)
-    .sort();
-  const amdShapes = listShapes
-    .filter((s) => s["shape-type"].includes("AMD"))
-    .map((s) => `${s.shape} (${s["shape-type"]})`)
-    .sort();
-  const ampereShapes = listShapes
-    .filter((s) => s["shape-type"].includes("AMPERE"))
-    .map((s) => `${s.shape} (${s["shape-type"]})`)
-    .sort();
-  choices = [...intelShapes, ...amdShapes, ...ampereShapes];
-
-  await inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "base_db_shape",
-        message: "Select Base DB Shape",
-        choices: choices,
-        filter(val) {
-          return listShapes.find((r) => val.includes(r.shape)).shape;
-        },
-      },
-    ])
-    .then((answers) => {
-      config.set("base_db_shape", answers.base_db_shape);
-    });
-}
-
 async function selectComputeShape() {
   const listComputeShapes = await getEFlexShapes(
     profile,
@@ -238,69 +135,6 @@ async function selectComputeShape() {
     ])
     .then((answers) => {
       config.set("instanceShape", answers.instance_shape);
-    });
-}
-
-async function selectDataScienceShape() {
-  const dsShapeFamilies = await listDataScienceSessionShapesFamilies(
-    { profile, region: regionName },
-    compartmentId
-  );
-
-  await inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "ds_shape_family",
-        message: "Select the Data Science Shape Family",
-        choices: dsShapeFamilies.sort(),
-      },
-    ])
-    .then(async (answers) => {
-      config.set("dsShapeFamily", answers.ds_shape_family);
-      const dsShapes = await listDataScienceSessionShapes(
-        { profile, region: regionName },
-        compartmentId,
-        answers.ds_shape_family
-      );
-
-      await inquirer
-        .prompt([
-          {
-            type: "list",
-            name: "ds_shape",
-            message: "Select the Data Science Shape",
-            choices: dsShapes
-              .map((s) => s.name)
-              .sort()
-              .reverse(),
-          },
-        ])
-        .then((answers) => {
-          config.set("dsShape", answers.ds_shape);
-        });
-    });
-}
-
-async function selectNotebookSize() {
-  await inquirer
-    .prompt([
-      {
-        type: "number",
-        name: "notebook_ocpu",
-        message: "Data Science Notebook OCPUs",
-        default: 1,
-      },
-      {
-        type: "number",
-        name: "notebook_memory",
-        message: "Data Science Notebook Memory (Gb)",
-        default: 16,
-      },
-    ])
-    .then((answers) => {
-      config.set("dsNotebookOCPU", answers.notebook_ocpu);
-      config.set("dsNotebookMemory", answers.notebook_memory);
     });
 }
 

@@ -1,3 +1,14 @@
+locals {
+  cloud_init_content = templatefile("${path.module}/userdata/bootstrap.tftpl", {
+    db_name                       = var.db_name
+    db_admin_password             = var.db_admin_password
+    wallet_par_full_path          = var.wallet_par_full_path
+    backend_jar_par_full_path     = var.backend_jar_par_full_path
+    ansible_backend_par_full_path = var.ansible_backend_artifact_par_full_path
+  })
+}
+
+
 data "oci_core_images" "ol8_images" {
   compartment_id           = var.compartment_ocid
   shape                    = var.instance_shape
@@ -15,6 +26,7 @@ resource "oci_core_instance" "instance" {
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
+    user_data           = base64encode(local.cloud_init_content)
   }
 
   shape_config {

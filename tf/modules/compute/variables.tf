@@ -60,28 +60,11 @@ variable "web_private_ip" {
   type = string
 }
 
-variable "db_home_location" {
+variable "db_name" {
   type = string
 }
 
-variable "db_private_ip" {
-  type = string
-}
-
-variable "db_url" {
-  type = string
-}
-
-variable "db_password" {
-  type      = string
-  sensitive = true
-}
-
-variable "db_pdb_url" {
-  type = string
-}
-
-variable "db_pdb_password" {
+variable "db_admin_password" {
   type      = string
   sensitive = true
 }
@@ -119,5 +102,9 @@ variable "web_par_full_path" {
 }
 
 variable "ansible_web_artifact_par_full_path" {
+  type = string
+}
+
+variable "wallet_par_full_path" {
   type = string
 }

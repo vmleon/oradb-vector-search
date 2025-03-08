@@ -131,3 +131,19 @@ resource "oci_objectstorage_preauthrequest" "ansible_db_artifact_par" {
   object_name  = oci_objectstorage_object.ansible_db_artifact_object.object
   time_expires = timeadd(timestamp(), "${var.artifacts_par_expiration_in_days * 24}h")
 }
+
+resource "oci_objectstorage_object" "db_wallet_artifact_object" {
+  bucket    = oci_objectstorage_bucket.artifacts_bucket.name
+  content    = module.adbs.wallet_zip_base64
+  namespace = data.oci_objectstorage_namespace.objectstorage_namespace.namespace
+  object    = "db_wallet_artifact.zip"
+}
+
+resource "oci_objectstorage_preauthrequest" "db_wallet_artifact_par" {
+  namespace    = data.oci_objectstorage_namespace.objectstorage_namespace.namespace
+  bucket       = oci_objectstorage_bucket.artifacts_bucket.name
+  name         = "db_wallet_artifact_par"
+  access_type  = "ObjectRead"
+  object_name  = oci_objectstorage_object.db_wallet_artifact_object.object
+  time_expires = timeadd(timestamp(), "${var.artifacts_par_expiration_in_days * 24}h")
+}

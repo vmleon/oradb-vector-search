@@ -14,7 +14,7 @@ $.verbose = false;
 clear();
 console.log("Creating Bastion Session...");
 
-const projectName = "vector";
+const projectName = "vect";
 
 const config = new Configstore(projectName, { projectName });
 

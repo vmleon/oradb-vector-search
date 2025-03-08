@@ -7,7 +7,7 @@ $.verbose = false;
 clear();
 console.log("Clean up config files, certs, ssh keys...");
 
-const projectName = "vector";
+const projectName = "vect";
 
 const config = new Configstore(projectName, { projectName });
 

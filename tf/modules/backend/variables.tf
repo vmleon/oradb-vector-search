@@ -37,3 +37,26 @@ variable "instance_shape" {
 variable "ssh_public_key" {
   type = string
 }
+
+
+variable "db_name" {
+  type = string
+}
+
+variable "db_admin_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "ansible_backend_artifact_par_full_path" {
+  type = string
+}
+
+variable "backend_jar_par_full_path" {
+  type = string
+}
+
+
+variable "wallet_par_full_path" {
+  type = string
+}

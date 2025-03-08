@@ -1,6 +1,0 @@
-#!/bin/bash
-
-for i in $(ls /home/oracle/dbc_certs/*.cer)
-do
-orapki wallet add -wallet . -trusted_cert -cert "$i" -pwd '{{db_password}}'
-done
